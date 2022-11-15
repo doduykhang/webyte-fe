@@ -1,0 +1,25 @@
+<div class="container" >
+  <div style="margin-top: 100px;">
+    <h1 style="text-align: center;"> Giới thiệu về bệnh viện </h1>
+  </div>
+ <div>
+   <img src="./assets/bv2.jpg" style="width: 100%;height: 100%;">
+ </div>
+ <div>
+   <h3>Thông tin về bệnh viện</h3>
+   <p>
+    Với quy mô hơn 300 giường bệnh, được thiết kế, xây dựng hiện đại, hợp lý và thoáng mát với khuôn viên rộng rãi nhiều cây xanh, bệnh viện được trang bị những máy móc, trang thiết bị y tế đồng bộ, hiện đại và mới nhất hiện nay. Mục tiêu của chúng tôi là phấn đấu đưa Bệnh viện Đa khoa Quốc tế Nam Sài Gòn trở thành một bệnh viện có thương hiệu, uy tín, chất lượng cao nằm trong top đầu của hệ thống bệnh viện tư tại TPHCM và khu vực phía Nam.    Bệnh viện Đa khoa Quốc tế Nam Sài Gòn luôn đảm bảo các yêu cầu về tiêu chuẩn vệ sinh môi trường, sạch sẽ, an toàn, kiểm soát nhiễm khuẩn tốt, thường xuyên cập nhật, ứng dụng các kỹ thuật, phương pháp tiên tiến trong chẩn đoán điều trị bệnh; đặc biệt luôn tuân thủ quy trình khám bệnh nghiêm ngặt, kỹ lưỡng để tránh trường hợp chẩn đoán sai hoặc bỏ sót bệnh.
+    Với một đội ngũ nhân viên y tế phục vụ tận tâm, yêu nghề cùng tập thể bác sỹ, chuyên gia giỏi chuyên môn, giàu y đức và đặc biệt với sự hỗ trợ hợp tác toàn diện của đội ngũ bác sỹ chuyên gia đầu ngành đến từ một số bệnh viện hàng đầu của khu vực TPHCM như Bệnh viện Chợ Rẫy, Bệnh viện Đại học y dược TPHCM… Bệnh viện Nam Sài Gòn chắc chắn sẽ là địa chỉ đáng tin cậy để quý khách hàng, người bệnh lựa chọn khi có nhu cầu khám chữa bệnh.
+    Sứ mệnh của chúng tôi là cung cấp những dịch vụ khám chữa bệnh, chăm sóc sức khỏe tốt nhất và phù hợp nhất cho tất cả mọi đối tượng, kể cả người có thu nhập trung bình và thấp.
+   </p>
+   <p>
+     date: <small>
+      01-12-2000
+    </small>
+   </p>
+   <input  id="imageUpload" type="file" style="display: none" (change)="changeImg($event)">
+   <label for="imageUpload" class="btn btn-outline-success">Seleccionar imagenes</label>&nbsp;&nbsp;
+   <label>{{fileName?fileName:'No files are selected!!'}}</label>&nbsp;&nbsp;
+   <button class="btn btn-primary"  (click)="uploadImg()"> Update photo</button>
+ </div>
+</div>

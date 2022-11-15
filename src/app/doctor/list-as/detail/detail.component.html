@@ -1,0 +1,103 @@
+<div class="container">
+  <div class="text-center" style="margin-top: 30px;">
+    <h1>Chi tiết lịch khám</h1>
+    <a href="">Danh sách lịch khám</a><a href="" class="text-info"> | Chi tiết
+      lịch khám</a>
+  </div>
+
+  <div>
+    <div style="margin-left: 15px;">
+      <div>
+        <h2>Đơn thuốc số: {{id}}</h2>
+      </div>
+    </div>
+
+    <div>
+
+      <mat-form-field  class="col-6"style="margin: 15px;">
+        <mat-label>Bệnh</mat-label>
+        <mat-select #selectList [formControl]="sicks" multiple
+          [(ngModel)]="myDropDown"
+          (ngModelChange)="onChangeofOptions($event)">
+          <input type="text" matInput style="height: 50px;" [(ngModel)]="search"
+            (keyup)="filterItem($event)" required>
+          <mat-option *ngFor="let item of sickList" [value]="item">{{item.sickname}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <form [formGroup]="formMedicine" (ngSubmit)="addMedicine()">
+        <mat-form-field  class="col-4" style="margin: 15px;">
+          <mat-label>Tên thuốc</mat-label>
+          <input type="text"
+            matInput
+            formControlName ="medicine"
+            required
+            [matAutocomplete]="autoGroup" (keyup)="filterMedicine($event)">
+          <mat-autocomplete #autoGroup="matAutocomplete">
+
+              <mat-option *ngFor="let name of medicineList" [value]="name.medicinename">
+                {{name.medicinename}}
+              </mat-option>
+
+          </mat-autocomplete>
+        </mat-form-field>
+        <mat-form-field class="col-4" style="margin: 15px;">
+          <mat-label>Liều dùng</mat-label>
+          <input matInput type="text" formControlName="dosage" required>
+        </mat-form-field>
+        <mat-form-field class="col-2" style="margin: 15px;">
+          <mat-label>Số lượng</mat-label>
+          <input matInput type="text" formControlName="amount" required>
+          <mat-error *ngIf="formMedicine.controls.amount.hasError('pattern')" style="color: red;"> *Số lượng phải là số </mat-error>
+        </mat-form-field>
+        <button type="submit" [disabled]="!formMedicine.valid" class="btn btn_color">
+          Thêm
+        </button>
+
+      </form>
+    </div>
+
+
+
+  </div>
+
+  <div>
+    <p *ngFor="let item of dataSource">
+      {{item.medicine}}
+    </p>
+    <table class="table align-items-center table-flush">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Stt</th>
+          <th scope="col">Tên thuốc</th>
+          <th scope="col">Số lượng</th>
+          <th scope="col">Liều dùng</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dataSource | paginate: {itemsPerPage:5, currentPage:p} , let i=index ">
+          <td>{{i+1}}</td>
+          <th scope="row">
+            <div class="media align-items-center">
+
+              <div class="media-body">
+                <span class="mb-0 text-sm">{{item.medicine}}</span>
+              </div>
+            </div>
+          </th>
+          <td>{{item.dosage}}</td>
+          <td>{{item.amount}}</td>
+
+          <td>
+            <a  (click)=" remove(item)" style="color: rgb(232, 18, 18);margin-right: 10px;
+              font-size: larger;"><i class="fa fa-trash"
+                aria-hidden="true"></i></a>
+              </td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="submit" [disabled]="!formMedicine.valid && sicks.valid" class="btn btn_color">
+      Lưu
+    </button>
+  </div>
+</div>

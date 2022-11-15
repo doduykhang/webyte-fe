@@ -1,0 +1,92 @@
+table {
+  width: 100%;
+}
+.section-title h2::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 120px;
+  height: 1px;
+  background: #ddd;
+  bottom: 1px;
+  left: calc(50% - 60px);
+}
+
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: #47b2e4;
+  bottom: 0;
+  left: calc(50% - 20px);
+}
+
+.section-title h2 {
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  color: #37517e;
+}
+
+.breadcrumb-item+.breadcrumb-item {
+
+  padding-left: 0.5rem;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+  display: inline-block;
+  padding-right: 0.5rem;
+  color: #6c757d;
+  content: "/";
+}
+
+.breadcrumb-item+.breadcrumb-item:hover::before {
+  text-decoration: underline;
+}
+
+.breadcrumb-item+.breadcrumb-item:hover::before {
+  text-decoration: none;
+}
+
+.breadcrumb-item.active {
+  color: #6c757d;
+}
+
+.appointment-header {
+  background-image: url(/assets/hinhbgr.jpg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 80%;
+  height: 340px;
+  background-color: #e2fffe;
+  border-radius: 30px;
+  margin: auto;
+}
+.appointment-title{
+  font-size: larger;
+  color: rgb(33, 78, 94);
+}
+.appointment-title a:hover{
+ color: rgb(30, 164, 165);
+ text-decoration: underline;
+}
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+a{
+  text-decoration: none;
+  color: rgb(55, 81, 126);
+}
+a:hover{
+  color: rgb(71, 178, 228);
+}

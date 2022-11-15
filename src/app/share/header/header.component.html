@@ -1,0 +1,43 @@
+
+<header [ngClass]="class" id="header" class="fixed-top "  style="padding: 15px;" >
+  <div class="container d-flex align-items-center">
+
+    <h1 class="logo me-auto"><a href="index.html">Webyte</a></h1>
+    <!-- Uncomment below if you prefer to use an image logo -->
+    <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
+    <nav id="navbar" class="navbar" [ngClass]="navbar_mobile">
+      <ul *ngFor="let item of header">
+        <li><a class="nav-link scrollto {{item.active}}" [routerLink]="['/user/'+item.name]"  routerLinkActive="router-link-active" (click)="headerClick(item.name)">{{item.title}}</a></li>
+        <!-- <li><a class="nav-link scrollto active" [routerLink]="['home']"  routerLinkActive="router-link-active">Trang chủ</a></li>
+        <li><a class="nav-link scrollto" (click)="about()">Giới thiệu</a></li>
+        <li><a class="nav-link scrollto" href="#services">Danh mục bác sĩ</a></li>
+        <li><a class="nav-link   scrollto" href="#portfolio">Lịch khám</a></li>
+        <li><a class="nav-link scrollto" href="#team">Liên hệ</a></li>
+        <li class="dropdown"><a href="#"><span>Danh mục bệnh</span> <i class="bi bi-chevron-down"></i></a>
+          <ul>
+            <li><a href="#">Drop Down 1</a></li>
+            <li class="dropdown"><a href="#"><span>Thông tin cá nhân</span> <i class="bi bi-chevron-right"></i></a>
+              <ul>
+                <li><a href="#">Deep Drop Down 1</a></li>
+                <li><a href="#">Deep Drop Down 2</a></li>
+                <li><a href="#">Deep Drop Down 3</a></li>
+                <li><a href="#">Deep Drop Down 4</a></li>
+                <li><a href="#">Deep Drop Down 5</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Drop Down 2</a></li>
+            <li><a href="#">Drop Down 3</a></li>
+            <li><a href="#">Drop Down 4</a></li>
+          </ul>
+        </li>
+        <li><a class="nav-link scrollto" href="#contact">Thông tin cá nhân</a></li>
+        <li><a class="getstarted scrollto"  [routerLink]="['login']"  routerLinkActive="router-link-active">Login</a></li>
+        -->
+      </ul>
+
+      <i *ngIf="!class_bix" class="fa fa-bars mobile-nav-toggle" [ngClass]="class_bix" (click)="click()"></i>
+      <i *ngIf="class_bix" class=" mobile-nav-toggle fa fa-times" (click)="click()"></i>
+    </nav><!-- .navbar -->
+  </div>
+</header>

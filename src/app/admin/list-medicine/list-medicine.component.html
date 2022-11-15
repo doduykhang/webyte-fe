@@ -1,0 +1,90 @@
+<div class="container-fluid mt--7">
+  <div class="p-3 text-center section-title">
+    <h2 class="mt-3">Danh mục thuốc</h2>
+
+  </div>
+  <button (click)="create()">Create</button>
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+<!--        <div class="card-header border-0">-->
+<!--          <h3 class="mb-0">Danh sách lịch hẹn khám</h3>-->
+<!--          <div ngbDropdown placement="bottom-right">-->
+<!--            <a class="btn btn-sm btn-icon-only btn-outline-primary"-->
+<!--               ngbDropdownToggle>Lọc theo khoa-->
+<!--              <i class="fas fa-ellipsis-v"></i>-->
+<!--            </a>-->
+<!--            <div ngbDropdownMenu class="dropdown-menu-right-->
+<!--              dropdown-menu-arrow">-->
+<!--              <a  class="dropdown-item" href="javascript:void(0)" (click)="filterDept(0)" >Tất cả</a>-->
+<!--              <a class="dropdown-item" href="javascript:void(0)" *ngFor="let item of listDept" (click)="filterDept(item.deptid)">{{item.deptname}}</a>-->
+
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+        <div class="table-responsive">
+          <table class="table align-items-center table-flush">
+            <thead class="thead-light">
+            <tr>
+              <th scope="col">Stt</th>
+              <th scope="col">Tên thuốc</th>
+              <th scope="col">Trạng thái</th>
+              <th scope="col">Số lượng</th>
+              <th scope="col">Đóng gói</th>
+              <th scope="col">Hành động</th>
+              <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of listMedicine | paginate: {itemsPerPage:5, currentPage:p}, let i=index">
+              <td>{{i+1}}</td>
+              <td>{{item.medicinename}}</td>
+              <td>{{item.status}}</td>
+              <td>{{item.count}}</td>
+              <td>{{item.pack}}</td>
+              <td>
+                <a style="color: rgb(232, 18, 18);margin-right: 10px;
+                    font-size: larger;" (click)="delete(item)"><i class="fa fa-trash"
+                                           aria-hidden="true"></i></a>
+                <a style="color: rgb(61, 205, 230); font-size: larger;" (click)="update(item)"><i
+                  class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="pagination">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+<!--        <div class="card-footer py-4">-->
+<!--          <nav aria-label="...">-->
+<!--            <ul class="pagination justify-content-end mb-0">-->
+<!--              <li class="page-item disabled">-->
+<!--                <a class="page-link" href="javascript:void(0)" tabindex="-1">-->
+<!--                  <i class="fas fa-angle-left"></i>-->
+<!--                  <span class="sr-only">Previous</span>-->
+<!--                </a>-->
+<!--              </li>-->
+<!--              <li class="page-item active">-->
+<!--                <a class="page-link" href="javascript:void(0)">1</a>-->
+<!--              </li>-->
+<!--              <li class="page-item">-->
+<!--                <a class="page-link" href="javascript:void(0)">2 <span-->
+<!--                  class="sr-only">(current)</span></a>-->
+<!--              </li>-->
+<!--              <li class="page-item"><a class="page-link"-->
+<!--                                       href="javascript:void(0)">3</a></li>-->
+<!--              <li class="page-item">-->
+<!--                <a class="page-link" href="javascript:void(0)">-->
+<!--                  <i class="fas fa-angle-right"></i>-->
+<!--                  <span class="sr-only">Next</span>-->
+<!--                </a>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </nav>-->
+<!--        </div>-->
+      </div>
+    </div>
+  </div>
+</div>

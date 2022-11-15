@@ -1,0 +1,24 @@
+<div mat-dialog-content>
+    <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+
+        <mat-form-field>
+            <mat-label>Sick name</mat-label>
+            <input matInput formControlName="sickName">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Sick type</mat-label>
+            <mat-select formControlName="sickTypeId">
+                <mat-option *ngFor="let type of sicktypes" [value]="type.idtypesick">
+                    {{type.typesickname}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button type="submit">Create</button>
+    </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">Cancel</button>
+</div>

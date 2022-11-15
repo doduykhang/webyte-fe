@@ -1,0 +1,80 @@
+<div class="container" style="margin-top: 100px;">
+
+
+  <div class="justify-content-center">
+    <div class="appointment-header">
+      <div style="float: right; margin: 12% 20px;">
+        <div class="appointment-title">
+          <a href="">
+            Trang chủ
+          </a>
+          <a>/Lịch khám</a>
+          <br>
+          <br>
+        </div>
+        <button class="btn btn-primary" (click)="registrationSchedule()"> Đăng ký lịch khám</button>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-lg-8 mx-auto">
+    <div class="p-3 text-center section-title">
+      <h2 class="mt-3">Danh sách lịch khám</h2>
+      <button class="btn btn-outline-primary" (click)="clickOffline()">Tất cả</button>
+      <button class="btn btn-outline-primary  mx-3" (click)="clickOffline('Offline')"> Khám trực tiếp</button>
+      <button class="btn btn-outline-primary" (click)="clickOffline('Online')"> Khám trực tuyến</button>
+      <button class="btn btn-outline-primary mx-3" (click)="clickOffline('Đã hủy')"> Đã hủy</button>
+      <button class="btn btn-outline-primary" (click)="clickOffline('Đã khám')"> Đã khám</button>
+    </div>
+
+  </div>
+  <div class="row">
+    <div style="margin-bottom: 20px;" class="col-sm-4 "
+         *ngFor="let item of listAppointmentSchedule | paginate: {itemsPerPage:6, currentPage:p}">
+      <mat-card class="example-card">
+        <div (click)="clickItemAppointment(item)">
+          <mat-card-header>
+            <div class="col-2 ">
+              <div mat-card-avatar class="example-header-image"></div>
+            </div>
+            <div class="col-4" *ngIf="item.doctorName">
+
+              <mat-card-title>Bác sĩ <i class="fa fa-user-md" aria-hidden="true"></i></mat-card-title>
+              <mat-card-subtitle>{{item.doctorName}}</mat-card-subtitle>
+            </div>
+            <div class="col-5">
+              <mat-card-title>Ngày khám <i class="fa fa-calendar-check-o"
+                                           aria-hidden="true"></i></mat-card-title>
+
+              <mat-card-subtitle>{{item.date|date:'dd-MM-yyyy'}}</mat-card-subtitle>
+            </div>
+
+          </mat-card-header>
+
+          <mat-card-content style="margin-left: 31px;">
+            <p><b>STT:</b> {{item.number}}</p>
+            <p><b>Giờ dự kiến:</b> {{item.time}}</p>
+            <p style="color: rgb(86, 180, 177);"><b>Hình thức khám:</b> {{item.typeClinic}} </p>
+
+          </mat-card-content>
+          <mat-card-actions class="" style="display: flex;
+        justify-content: center;">
+            <button mat-button color="primary">{{item.status}}</button>
+            <button mat-button style="color: red;" *ngIf="item.status=='Chờ khám'">Vào phòng khám</button>
+            <button mat-button color="primary" *ngIf="item.status=='Đã đăng ký'">Hủy</button>
+          </mat-card-actions>
+        </div>
+
+      </mat-card>
+
+    </div>
+
+  </div>
+  <div>
+    <div class="pagination">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+
+  </div>
+
+</div>

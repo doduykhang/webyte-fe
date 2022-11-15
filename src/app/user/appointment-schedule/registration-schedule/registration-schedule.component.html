@@ -1,0 +1,83 @@
+<div class="container" style="margin-top: 100px; width: 70%;">
+  <div class="col-lg-6 mx-auto">
+    <div class="p-3 text-center section-title">
+      <h2 class="mt-3">Nội dung đặt lịch khám</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8">
+      <form [formGroup]="formDangKy" (ngSubmit)="payment()">
+        <div>
+          <h6> 1.Chọn phương thức khám</h6>
+          <div>
+            <a class="btn btn-outline-success btn-time"
+              style="margin-right: 5px;"
+              [ngClass]="changeColors" (click)="changeColor(false)">Khám trực
+              tiếp</a>
+            <a class="btn btn-outline-success btn-time"
+              [ngClass]="changeColors1"
+              (click)="changeColor(true)">Khám online</a>
+          </div>
+        </div>
+        <div>
+          <h6> 2.Chọn ngày khám</h6>
+          <div style="width: 70%;">
+            <input formControlName="ngayKham" class="date-registration"
+              type="date" [ngClass]="class" (click)="clickDate()" (ngModelChange)="choseDate($event)">
+            <hr style="margin: 5px;">
+            <small class="change-color-red" *ngIf="formDangKy.controls.ngayKham.hasError('required')&&formDangKy.controls.ngayKham.touched" > *Chọn ngày khám</small>
+            <small class="change-color-red" *ngIf="formDangKy.controls.ngayKham.hasError('datePattern')&&formDangKy.controls.ngayKham.touched" > *Ngày khám phải lớn hơn ngày hiện tại</small>
+          </div>
+        </div>
+        <div>
+          <h6> 3.Chọn Khoa Khám</h6>
+          <div class="select-khoa">
+            <mat-select formControlName="khoa">
+              <mat-option value="{{dept.deptname}}" *ngFor="let dept of listDept"  (click)="choseDept(dept.deptid)">{{dept.deptname}}</mat-option>
+            </mat-select>
+            <hr style="margin: 5px;">
+
+          </div>
+        </div>
+
+
+        <div *ngIf="formDangKy.controls.phuongThuc.value==='Online'">
+          <h6> 4.Chọn Bác Sĩ</h6>
+          <div class="select-khoa">
+            <mat-select formControlName="bacSi">
+              <mat-option value="{{item.fullname}}" *ngFor="let item of listDoctor" (click)="doctorChange(item.doctorid)" >{{item.fullname}}</mat-option>
+            </mat-select>
+            <hr style="margin: 5px;">
+          </div>
+        </div>
+        <div *ngIf="formDangKy.controls.phuongThuc.valid">
+          <h6> 5. Chọn giờ khám</h6>
+          <div class="row">
+            <div class="col-2" style="margin: 10px 0px;" *ngFor="let item of time">
+              <a  class="btn btn-outline-success btn-time" [ngClass]="item.class" (click)="clickTime(item.time)">{{item.time}}</a>
+            </div>
+
+          </div>
+        </div>
+        <div *ngIf="online">
+          <h6> 6. Giá khám Online(Chỉ dành cho khám online)</h6>
+          <div>
+            <p > Giá: <input formControlName="gia" style="color: red; border: none;" readonly/> đồng<b>( Giá quy đổi sang $: {{quydoi}} $)</b></p>
+          </div>
+        </div>
+        <button type="submit" [disabled]="!formDangKy.valid" class="btn btn-danger">Xác nhận đăng ký</button>
+
+      </form>
+    </div>
+    <div class="col-4">
+      <h4>Chi tiết </h4>
+      <p><b>Phương thức khám:</b> {{formDangKy.controls['phuongThuc'].value}}</p>
+      <p><b>Ngày khám:</b> {{formDangKy.controls['ngayKham'].value|date:'dd-MM-yyyy'}}</p>
+      <p><b>Khoa:</b> {{formDangKy.controls['khoa'].value}}</p>
+      <p *ngIf="formDangKy.controls.phuongThuc.value==='Online'"><b>Bác sĩ:</b> {{formDangKy.controls['bacSi'].value}}</p>
+      <p><b>Giờ khám:</b> {{formDangKy.controls['gioKham'].value}}</p>
+      <p  *ngIf="online"><b style="color: red;">Giá khám onl:</b> {{formDangKy.controls['gia'].value}}</p>
+    </div>
+  </div>
+
+</div>

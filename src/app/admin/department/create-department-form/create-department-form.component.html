@@ -1,0 +1,16 @@
+<div mat-dialog-content>
+    <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+    
+        <mat-form-field>
+            <mat-label>Department name</mat-label>
+            <input matInput formControlName="deptname">
+        </mat-form-field>
+    
+
+        <button type="submit">Create</button>
+    </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">Cancel</button>
+</div>

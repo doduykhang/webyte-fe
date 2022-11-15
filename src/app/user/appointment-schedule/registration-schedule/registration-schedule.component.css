@@ -1,0 +1,75 @@
+.section-title h2::before {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 120px;
+  height: 1px;
+  background: #ddd;
+  bottom: 1px;
+  left: calc(50% - 60px);
+}
+
+.section-title h2::after {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: #47b2e4;
+  bottom: 0;
+  left: calc(50% - 20px);
+}
+
+.section-title h2 {
+  font-size: 32px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  position: relative;
+  color: #37517e;
+}
+.change-color{
+  background-color:#2CAAAC !important;
+  color: #ffffff !important;
+  border-color: #2CAAAC !important;
+}
+.date-registration{
+  width: 100%; border: none;
+}
+.date-registration-click{
+  border: none;
+  border-color: aqua !important;
+}
+.select-khoa{
+  width: 70%;
+  background-color: rgb(255, 255, 255) !important;
+
+}
+.btn-time{
+ border-radius: 40px;
+ color: #2CAAAC;
+ border-color: #2CAAAC;
+}
+.btn-time:hover{
+  background-color: #2CAAAC;
+  color: white;
+  border-color: #2CAAAC;
+}
+.btn-outline-color{
+  color: #2CAAAC;
+  border-color: #2CAAAC;
+}
+.btn-color{
+  background-color: #2CAAAC !important;
+  color: white !important;
+  border-color: #2CAAAC !important;
+}
+.btn-color-active{
+  background-color: #1e6a6b !important;
+  color: white !important;
+  border-color: #1e6a6b !important;
+}
+.change-color-red{
+  color: red;
+}

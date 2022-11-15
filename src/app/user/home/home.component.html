@@ -1,0 +1,102 @@
+
+<app-slide-show></app-slide-show>
+<div class="container">
+
+
+  <section>
+    <div class="row">
+      <div class="col-lg-6 mx-auto">
+        <div class="p-3 text-center mb-5 section-title">
+          <h2 class="mt-3">Tầm nhìn và sứ mệnh của chúng tôi</h2>
+          <p>Mang đến dịch vụ khám chữa bệnh tốt nhất tới từng bệnh nhân. Phương châm sức khỏe là hàng đầu!!</p>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="padding: 15px;">
+      <div class="background1 col-4">
+        <p class="background1-text">hello</p>
+      </div>
+      <div class="col-4">
+        <div class="background2 background2-1"></div>
+        <div class="background2 background2-2"></div>
+      </div>
+      <div class="col-4">
+        <div class="background2 background2-3"></div>
+        <div class="background2 background2-4"></div>
+      </div>
+    </div>
+  </section>
+  <div>
+    <div class="container" data-aos="fade-up">
+      <div class="section-title">
+        <h2>Tin tức mỗi ngày!!</h2>
+      </div>
+    </div>
+    <section class="py-5">
+      <div class="container">
+        <div class="row" *ngFor="let item,let i= index of news">
+          <div class="col-lg-12" *ngIf="i%2==0">
+            <div class="row">
+              <div class="col-lg-6 justify-content-center d-flex flex-column">
+                <div class="">
+                  <div class="d-block blur-shadow-image">
+                    <img src="/assets/{{item.img}}"
+                      alt="img-blur-shadow-blog-2" class="img-fluid img">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 justify-content-center d-flex flex-column
+                ps-lg-5 pt-lg-0 pt-3">
+                <h6 class="category text-info mt-3">Tin tức:</h6>
+                <h3>
+                  <a href="javascript:;" class="text-dark">{{item.title}}</a>
+                </h3>
+                <p>
+                  {{item.content}}… <a href="javascript:;" class="text-darker
+                    icon-move-right text-sm">Đọc thêm
+                    <i class="fas fa-arrow-right text-xs ms-1"></i>
+                  </a>
+                </p>
+                <p class="author">
+                  Tác giả: <a href="javascript:;" class="ms-1"><span
+                      class="font-weight-bold text-info">{{item.author}}</span></a>,
+                  {{item.date|date:'MMM d, y'}}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-12 mt-5" *ngIf="i%2!=0">
+            <div class="row flex-row-reverse">
+              <div class="col-lg-6 justify-content-center d-flex flex-column">
+                <div class="">
+                  <div class="blur-shadow-image">
+                    <img src="/assets/{{item.img}}"
+                      alt="img-blur-shadow-blog-2" class="img-fluid img">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 pe-lg-5 justify-content-center d-flex
+                flex-column pt-lg-0 pt-3">
+                <h6 class="category text-info mt-3">Tin tức:</h6>
+                <h3>
+                  <a href="javascript:;" class="text-dark">{{item.title}}</a>
+                </h3>
+                <p>
+                  {{item.content}}… <a href="javascript:;" class="text-darker
+                    icon-move-right text-sm">Đọc thêm
+                    <i class="fas fa-arrow-right text-xs ms-1"></i>
+                  </a>
+                </p>
+                <p class="author">
+                  Tác giả: <a href="javascript:;" class="ms-1"><span
+                      class="font-weight-bold text-info">{{item.author}}</span></a>,
+                  {{item.date|date:'MMM d, y'}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

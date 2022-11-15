@@ -1,0 +1,82 @@
+<div class="container">
+  <div class="p-3 text-center section-title">
+    <h2 class="mt-3">Danh sách lịch khám</h2>
+
+  </div>
+
+  <div ngbDropdown placement="bottom-right">
+    <a class="btn btn-primary " style="background-color: rgb(230, 103, 103);border-color: rgb(230, 103, 103);"
+       ngbDropdownToggle>Lọc theo trạng thái
+    </a>
+    <div ngbDropdownMenu class="dropdown-menu-xl-start
+      dropdown-menu-arrow">
+      <a class="dropdown-item" href="javascript:void(0)" (click)="getAppoint('')">Tất cả</a>
+      <a class="dropdown-item" href="javascript:void(0)" (click)="getAppoint('Đã đăng ký')">Đã đăng kí</a>
+      <a class="dropdown-item" href="javascript:void(0)" (click)="getAppoint('Đã Hủy')">Đã Hủy</a>
+      <a class="dropdown-item" href="javascript:void(0)" (click)="getAppoint('Chờ khám')">Chờ khám</a>
+      <a class="dropdown-item" href="javascript:void(0)" (click)="getAppoint('Đã khám')">Đã khám</a>
+    </div>
+  </div>
+
+  <br>
+
+  <table mat-table [dataSource]="dataSource | paginate: {itemsPerPage:5, currentPage:p}" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> STT</th>
+      <td mat-cell *matCellDef="let element ,let i = index;"> {{i + 1}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="idAppoint">
+      <th mat-header-cell *matHeaderCellDef> Mã Lịch khám</th>
+      <td mat-cell *matCellDef="let element"> {{element.idappointmentSchedule}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="patientName">
+      <th mat-header-cell *matHeaderCellDef> Bệnh nhân</th>
+      <td mat-cell *matCellDef="let element"> {{element.patientName}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="doctorName">
+      <th mat-header-cell *matHeaderCellDef> Bác sĩ</th>
+      <td mat-cell *matCellDef="let element"> {{element.doctorName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Ngày hẹn khám</th>
+      <td mat-cell *matCellDef="let element"> {{element.date|date:'dd-MM-yyyy'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Trạng thái</th>
+      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+    </ng-container>
+    <ng-container matColumnDef="typeOfClinic">
+      <th mat-header-cell *matHeaderCellDef> Hình thức khám</th>
+      <td mat-cell *matCellDef="let element"> {{element.typeClinic}} </td>
+    </ng-container>
+    <ng-container matColumnDef="hmm">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element" style="text-align: right;">
+        <a style="color: rgb(232, 18, 18);margin-right: 10px; font-size: larger; "><i class="fa fa-trash"
+                                                                                      aria-hidden="true" (click)="xoaKhoa()"></i></a>
+        <a style="color: rgb(61, 205, 230); font-size: larger;"><i class="fa  fa-pencil-square-o"
+                                                                   aria-hidden="true" (click)="themKhoa()"></i></a>
+      </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <div class=" py-4">
+    <div class="pagination">
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<nav class="navbar-admin navbar bg-white" id="sidenav-main">
+  <div class="">
+
+    <!-- Collapse -->
+    <div class="navbar-nav">
+      <!-- Collapse header -->
+
+      <!-- Navigation -->
+      <div class="navbar-nav-admin">
+        <h1 class="nav-item"><h1 class="nav-link" style="font-size: xx-large;">WEBYTE</h1>
+        </h1>
+        <hr>
+        <ul class="navbar-nav " style="overflow-y: auto;">
+
+          <li *ngFor="let menuItem of menuItems" class="{{menuItem.class}}
+            nav-item">
+            <a routerLinkActive="active" [routerLink]="[menuItem.path]"
+               class="nav-link  nav-item-color" style="color: #ffb8b8;">
+              <i style="margin-right: 10px;" class=" ni {{menuItem.icon}}"></i>
+              {{menuItem.title}}
+            </a>
+          </li>
+        </ul>
+        <hr>
+        <ul class="navbar-nav nav-botton ">
+          <!--          <li class="nav-item">-->
+          <!--            <a class="nav-link nav-item-color"href="https://demos.creative-tim.com/argon-dashboard-angular/documentation/tutorial">-->
+          <!--              <i class="fa fa-user-circle"></i> Thông tin cá nhân-->
+          <!--            </a>-->
+          <!--          </li>-->
+
+          <li class="nav-item">
+            <a class="nav-link nav-item-color"
+               (click)="logout()">
+              <i class="fa fa-share" aria-hidden="true"></i> Đăng xuất
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- Navigation -->
+
+    </div>
+  </div>
+
+</nav>

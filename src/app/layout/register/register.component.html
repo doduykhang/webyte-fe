@@ -1,0 +1,111 @@
+
+	<div class="limiter" >
+		<div class="container-login100">
+
+			<div  style="display: block;margin-top: 80px;" class="wrap-login100" >
+
+        <div class="row justify-content-center">
+          <h1  style="text-align:center;margin-top:20px;">Websiteyte</h1>
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="login100-pic js-tilt col-6" data-tilt>
+            <img src="./assets/imglogin.png" alt="IMG">
+          </div>
+
+          <form [formGroup]="formRegister" class="login100-form validate-form col-6" (ngSubmit)="onSubmit()">
+            <span class="login100-form-title">
+              Đăng ký tài khoản
+            </span>
+<!--            <div class="wrap-input100 validate-input" data-validate = "Username is required">-->
+<!--              <input class="input100" type="text" name="pass" placeholder="Username">-->
+<!--              <span class="focus-input100"></span>-->
+
+<!--            </div>-->
+<!--            <div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">-->
+<!--              <input class="input100" type="text" name="email" placeholder="Email">-->
+<!--              <span class="focus-input100"></span>-->
+
+<!--            </div>-->
+
+<!--            <div class="wrap-input100 validate-input" data-validate = "Phone is required">-->
+<!--              <input class="input100" type="text" name="pass" placeholder="Phone">-->
+<!--              <span class="focus-input100"></span>-->
+
+<!--            </div>-->
+<!--            <div class="wrap-input100 validate-input" data-validate = "Password is required">-->
+<!--              <input class="input100" type="password" name="pass" placeholder="Password">-->
+<!--              <span class="focus-input100"></span>-->
+
+<!--            </div>-->
+<!--            <div class="wrap-input100 validate-input" data-validate = "Password is required">-->
+<!--              <input class="input100" type="password" name="pass" placeholder="Confirm Password">-->
+<!--              <span class="focus-input100"></span>-->
+
+<!--            </div>-->
+            <mat-form-field class="example-full-width" style="width: 100%;" appearance="fill">
+              <mat-label >Tên đăng nhập</mat-label>
+              <input id="username" class="col-6" type="text" matInput
+                     formControlName="username" [errorStateMatcher]="matcher" />
+              <mat-error *ngIf="formRegister.controls.username.invalid">
+                *Thêm <strong>tên đăng nhập!</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" style="width: 100%;" appearance="fill">
+              <mat-label >Email</mat-label>
+              <input id="email" class="col-6" type="email" matInput
+                     formControlName="email" [errorStateMatcher]="matcher" />
+              <mat-error *ngIf="formRegister.controls.email.invalid">
+                *Thêm <strong>email!</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" style="width: 100%; " appearance="fill">
+              <mat-label >Số điện thoại</mat-label>
+              <input id="phone" class="col-6" type="text" matInput
+                     formControlName="phone" [errorStateMatcher]="matcher" />
+              <mat-error *ngIf="formRegister.controls.phone.invalid">
+                *Thêm <strong>số điện thoại!</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" style="width: 100%;" appearance="fill">
+              <mat-label >Mật khẩu</mat-label>
+              <input id="password" class="col-6" type="password" matInput
+                     formControlName="password" [errorStateMatcher]="matcher" />
+              <mat-error *ngIf="formRegister.controls.password.invalid">
+                *Thêm <strong>Mật khẩu!</strong>
+                Mật khẩu phải có ít nhất 8 ký tự( trong đó có 1 chữ viết hoa và 1 ký tự đặc biệt)
+              </mat-error>
+            </mat-form-field>
+            <br>
+            <br>
+            <mat-form-field  class="example-full-width" style="width: 100%;" appearance="fill">
+              <mat-label >Nhập lại mật khẩu</mat-label>
+              <input id="confirmPassword" class="col-6" type="password" matInput
+                     formControlName="confirmPassword" [errorStateMatcher]="matcher" />
+              <mat-error *ngIf="formRegister.controls.confirmPassword.invalid">
+                *Nhập lại <strong>mật khẩu!</strong>
+              </mat-error>
+            </mat-form-field>
+
+            <div class="container-login100-form-btn">
+              <button [disabled]="loading" class="login100-form-btn">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Đăng Ký
+              </button>
+            </div>
+
+            <div class="text-center p-t-12">
+              <span class="txt1">
+                Bạn có
+              </span>
+              <a class="txt2" href="#">
+                Tài khoản?
+              </a>
+            </div>
+          </form>
+        </div>
+
+			</div>
+		</div>
+	</div>
+

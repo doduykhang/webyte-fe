@@ -1,0 +1,14 @@
+table {
+  width: 100%;
+}
+a{
+  text-decoration: none;
+}
+
+.btn_color{
+  background-color: rgb(44, 169, 170);
+  color: white;
+}
+.btn_color:hover {
+  background-color:  rgb(75, 230, 230);
+}

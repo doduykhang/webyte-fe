@@ -1,0 +1,107 @@
+<!-- ======= Team Section ======= -->
+<section id="team" style="margin-top: 100px;" class="team section-bg">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Đội ngũ bác sĩ</h2>
+      <p>Phòng khám Bệnh viện quy tụ đội ngũ chuyên gia, bác sĩ, dược sĩ và điều
+        dưỡng có trình độ chuyên môn cao, tay nghề giỏi, luôn tận tâm và chu đáo
+        với người bệnh.
+
+        Phòng khám luôn đặt người bệnh là trọng tâm, và cam kết mang đến dịch vụ
+        chăm sóc sức khỏe tốt nhất cho quý khách hàng.</p>
+    </div>
+    <div>
+      <h1 class="text-center mb-5">Bác sĩ tiêu biểu!!!</h1>
+      <mat-carousel
+        timings="250ms ease-in"
+        [autoplay]="true"
+        interval="5000"
+        color="accent"
+        maxWidth="auto"
+
+        proportion="20"
+        slides="5"
+        [loop]="true"
+        [hideArrows]="false"
+        [hideIndicators]="false"
+        [useKeyboard]="true"
+        [useMouseWheel]="false"
+        orientation="ltr">
+        <!-- [image]="slide.image" -->
+        <mat-carousel-slide
+          #matCarouselSlide
+          *ngFor="let slide of slides ; let i= index"
+
+          overlayColor="#00000000"
+          [hideOverlay]="false">
+          <div class="testimonial-item bg-light rounded p-4">
+
+            <div class="d-flex align-items-center">
+              <img class="img-fluid flex-shrink-0 rounded"
+                   src="{{slide.image}}" style="width: 200px; height: 200px; margin:0px
+            50px !important;">
+              <div class="ps-3">
+                <h5 class="mb-1">{{slide.title}}</h5>
+                <small>{{slide.text}}</small>
+                <p style="font-family: 'Sansita Swashed', cursive;">" Châm ngôn
+                  sống: Khám chữa bệnh phải dựa vào cái tâm của mình!!!"</p>
+              </div>
+            </div>
+          </div>
+        </mat-carousel-slide>
+
+      </mat-carousel>
+    </div>
+
+    <div class="row">
+
+
+      <div class="col-3">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item nav-link-inner--text">
+            <a class="nav-link-span" (click)="listDept()">
+              <i class="fa fa-users" style="margin-right: 40px;"></i>
+              <span class=""> &emsp;Tất cả</span>
+            </a>
+            <hr style="margin: 4px;">
+          </li>
+          <li class="nav-item nav-link-inner--text" *ngFor="let item of listKhoa">
+            <a class="nav-link-span" (click)="listDept(item.deptname)">
+              <i class="fa fa-users" style="margin-right: 40px;"></i>
+              <span class=""> &emsp; {{item.deptname}}</span>
+            </a>
+            <hr style="margin: 4px;">
+          </li>
+
+        </ul>
+      </div>
+      <div class="col-9">
+        <div class="row">
+
+          <div class="col-lg-6" *ngFor="let item of listDoctor | paginate: {itemsPerPage:4, currentPage:p}">
+            <div class="member d-flex align-items-start" data-aos="zoom-in"
+                 data-aos-delay="100" style="margin: 20px;">
+              <div class="pic"><img style="height: 160px;width: 180px;"
+                                    src="assets/{{item.img}}" class="img-fluid" alt=""></div>
+              <div class="member-info">
+                <h4>{{item.fullname}}</h4>
+                <span> Email: {{item.email}}</span>
+                <p> Khoa: {{item.deptname}}</p>
+                <div class="social">
+                  <a href=""><i class="ri-twitter-fill"></i></a>
+                  <a href=""><i class="ri-facebook-fill"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pagination">
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</section><!-- End Team Section -->
