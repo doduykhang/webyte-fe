@@ -14,24 +14,24 @@
           <table class="table align-items-center table-flush">
             <thead class="thead-light">
               <tr>
-                <th scope="col">Stt</th>
+                <th scope="col">Id</th>
                 <th scope="col">Tên khoa</th>
                 <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of dataSource | paginate: {itemsPerPage:5, currentPage:p}, let i= index">
-                <td>{{i+1}}</td>
+                <td>{{item.departmentId}}</td>
                 <th scope="row">
                   <div class="media align-items-center">
 
                     <div class="media-body">
-                      <span class="mb-0 text-sm">{{item.deptname}}</span>
+                      <span class="mb-0 text-sm">{{item.departmentName}}</span>
                     </div>
                   </div>
                 </th>
                 <td>
-                  <a style="color: rgb(232, 18, 18);margin-right: 10px; font-size: larger; " ><i class="fa fa-trash" aria-hidden="true" (click)="xoaKhoa(item.deptid)"></i></a>
+                  <a style="color: rgb(232, 18, 18);margin-right: 10px; font-size: larger; " ><i class="fa fa-trash" aria-hidden="true" (click)="xoaKhoa(item.departmentId)"></i></a>
                   <a style="color: rgb(61, 205, 230); font-size: larger;" ><i class="fa  fa-pencil-square-o" aria-hidden="true" (click)="update(item)"></i></a>
                 </td>
 
