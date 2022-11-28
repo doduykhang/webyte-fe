@@ -187,7 +187,7 @@ export class NotifyService {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				this.doctorSV.deleteDoctorByID(id).subscribe(data => {
-					if (data === 1) {
+					if (data.message === "ok") {
 						this.notifyCancel('Xóa thành công!');
 						this.reloadPage();
 					} else {
@@ -212,7 +212,7 @@ export class NotifyService {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				this.medicineSV.deleteByID(id).subscribe(data => {
-					if (data === 1) {
+					if (data.message === "ok") {
 						this.notifyCancel('Xóa thành công!');
 						this.reloadPage();
 					} else {
@@ -236,7 +236,7 @@ export class NotifyService {
 		}).then((result) => {
 			if (result.isConfirmed) {
 				this.sickSV.delete(id).subscribe(data => {
-					if (data === 1) {
+					if (data.message === "ok") {
 						this.notifyCancel('Xóa thành công!');
 						this.reloadPage();
 					} else {

@@ -1,28 +1,41 @@
 <div mat-dialog-content>
     <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
-
-    
         <mat-form-field>
             <mat-label>Medicine name</mat-label>
-            <input matInput formControlName="medicinename">
+            <input matInput formControlName="medicineName">
         </mat-form-field>
 
         <mat-form-field>
             <mat-label>Status</mat-label>
-            <input matInput formControlName="status">
+            <input matInput formControlName="medicineStatus">
         </mat-form-field>
 
         <mat-form-field>
             <mat-label>Count</mat-label>
-            <input type="number" matInput formControlName="count">
+            <input type="number" matInput formControlName="medicineQuantity">
         </mat-form-field>
     
         <mat-form-field>
             <mat-label>Pack</mat-label>
-            <input  matInput formControlName="pack">
+            <input  matInput formControlName="medicinePack">
         </mat-form-field>
 
-        <button type="submit">Create</button>
+        <mat-form-field>
+            <mat-label>Price</mat-label>
+            <input  matInput formControlName="medicinePrice">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Type</mat-label>
+            <input  matInput formControlName="medicineType">
+        </mat-form-field>
+	
+        <mat-form-field>
+            <mat-label>Type</mat-label>
+            <input  matInput formControlName="medicineDescription">
+        </mat-form-field>
+
+        <button type="submit">Update</button>
     </form>
 </div>
 <div mat-dialog-actions>

@@ -32,6 +32,8 @@
               <th scope="col">Trạng thái</th>
               <th scope="col">Số lượng</th>
               <th scope="col">Đóng gói</th>
+              <th scope="col">Price</th>
+              <th scope="col">Type</th>
               <th scope="col">Hành động</th>
               <th scope="col"></th>
             </tr>
@@ -39,10 +41,12 @@
             <tbody>
             <tr *ngFor="let item of listMedicine | paginate: {itemsPerPage:5, currentPage:p}, let i=index">
               <td>{{i+1}}</td>
-              <td>{{item.medicinename}}</td>
-              <td>{{item.status}}</td>
-              <td>{{item.count}}</td>
-              <td>{{item.pack}}</td>
+              <td>{{item.medicineName}}</td>
+              <td>{{item.medicineStatus}}</td>
+              <td>{{item.medicineQuantity}}</td>
+              <td>{{item.medicinePack}}</td>
+              <td>{{item.medicinePrice}}</td>
+              <td>{{item.medicineType}}</td>
               <td>
                 <a style="color: rgb(232, 18, 18);margin-right: 10px;
                     font-size: larger;" (click)="delete(item)"><i class="fa fa-trash"

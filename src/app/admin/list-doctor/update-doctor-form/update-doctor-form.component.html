@@ -1,10 +1,13 @@
 <div mat-dialog-content>
-
     <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <mat-label>First name</mat-label>
+            <input matInput formControlName="userFName">
+        </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="fullname">
+            <mat-label>Last name</mat-label>
+            <input matInput formControlName="userLName">
         </mat-form-field>
     
         <mat-form-field>
@@ -14,7 +17,7 @@
     
         <mat-form-field>
             <mat-label>Phone</mat-label>
-            <input matInput formControlName="phone">
+            <input matInput formControlName="phoneNum">
         </mat-form-field>
     
         <mat-form-field>
@@ -23,26 +26,16 @@
         </mat-form-field>
     
         <mat-form-field>
-            <mat-label>Address</mat-label>
-            <input matInput type="date" formControlName="birthday">
+            <mat-label>Birth date</mat-label>
+            <input matInput type="date" formControlName="birthDate">
         </mat-form-field>
     
         <mat-form-field>
             <mat-label>Image</mat-label>
-            <input matInput formControlName="img">
+            <input matInput formControlName="image">
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Department</mat-label>
-            <mat-select formControlName="deptId">
-                <mat-option *ngFor="let dept of listDept" [value]="dept.deptid">
-                    {{dept.deptname}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-
-        <button type="submit">Create</button>
+        <button type="submit">Update</button>
     </form>
 </div>
 <div mat-dialog-actions>

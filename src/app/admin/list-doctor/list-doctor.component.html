@@ -19,7 +19,7 @@
             <div ngbDropdownMenu class="dropdown-menu-right
               dropdown-menu-arrow">
               <a  class="dropdown-item" href="javascript:void(0)" (click)="filterDept(0)" >Tất cả</a>
-              <a class="dropdown-item" href="javascript:void(0)" *ngFor="let item of listDept" (click)="filterDept(item.deptid)">{{item.deptname}}</a>
+              <a class="dropdown-item" href="javascript:void(0)" *ngFor="let item of listDept" (click)="filterDept(item.departmentId)">{{item.departmentName}}</a>
 
             </div>
           </div>
@@ -44,18 +44,19 @@
                   <div class="media align-items-center">
 
                     <div class="media-body">
-                      <span class="mb-0 text-sm">{{item.fullname}}</span>
+                      <span class="mb-0 text-sm">{{item.userLName + " " + item.userFName}}</span>
                     </div>
                   </div>
                 </th>
                 <td>{{item.deptname}}</td>
-                <td>{{item.phone}}</td>
+                <td>{{item.phoneNum}}</td>
                 <td>{{item.email}}</td>
-                <td>{{item.birthday|date:'dd-MM-yyyy'}}</td>
+                <td>{{item.birthDate|date:'dd-MM-yyyy'}}</td>
+
                 <td>
                   <a style="color: rgb(232, 18, 18);margin-right: 10px;
                     font-size: larger;"><i class="fa fa-trash"
-                      aria-hidden="true" (click)="xoaBacSi(item.doctorid)"></i></a>
+                      aria-hidden="true" (click)="xoaBacSi(item.userId)"></i></a>
                   <a style="color: rgb(61, 205, 230); font-size: larger;" (click)="openDialogUpdate(item)"><i
                       class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                 </td>
