@@ -6,6 +6,7 @@ import { DoctorServiceService } from './adminservice/doctor-service.service';
 import { MedicineService } from './adminservice/medicine.service';
 import { PatientServiceService } from './adminservice/patient-service.service';
 import { SickService } from './adminservice/sick.service';
+import { NewsService } from './userservice/news.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -14,7 +15,8 @@ export class NotifyService {
 
 	constructor(private route: Router, private deptSV: DeptService,
 		private doctorSV: DoctorServiceService, private patientSV: PatientServiceService,
-		private medicineSV: MedicineService, private sickSV: SickService
+		private medicineSV: MedicineService, private sickSV: SickService,
+		private newsService: NewsService
 	) {
 	}
 
@@ -163,6 +165,31 @@ export class NotifyService {
 			if (result.isConfirmed) {
 				this.deptSV.deleteDeptByID(id).subscribe(data => {
 					if (data.message === "Ok") {
+						this.notifyCancel('Xóa thành công!');
+						this.reloadPage();
+					} else {
+						this.notifyCancel('Khoa đang tồn tại bác sĩ, Không thể xóa!');
+					}
+				}, error => {
+					this.notifyCancel('Xóa không thành công!');
+				});
+			}
+		});
+	}
+
+	xoaTin(id: number) {
+		Swal.fire({
+			title: 'Bạn đã chắc chắn?',
+			text: 'Bạn sẽ xóa khoa này khỏi danh sách khoa!',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Đồng ý xóa!',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				this.newsService.deleteNews(id).subscribe(data => {
+					if (data.message === "ok") {
 						this.notifyCancel('Xóa thành công!');
 						this.reloadPage();
 					} else {

@@ -1,0 +1,28 @@
+    <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+
+        <mat-form-field>
+            <mat-label>Tile</mat-label>
+            <input matInput formControlName="title">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Content</mat-label>
+            <input matInput formControlName="content">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Image</mat-label>
+            <input matInput formControlName="img">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Author</mat-label>
+            <input  matInput formControlName="author">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Text</mat-label>
+            <input  matInput formControlName="text">
+        </mat-form-field>
+
+        <button type="submit">Create</button>
