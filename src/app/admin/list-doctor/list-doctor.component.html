@@ -2,9 +2,14 @@
   <div class="p-3 text-center section-title">
     <h2 class="mt-3">Danh sách Bác sĩ</h2>
 
+  <button className="create-button" (click)="openDialog()" >Open create</button>
   </div>
   <!-- <app-create-doctor-form></app-create-doctor-form> -->
-  <button (click)="openDialog()" >Open create</button>
+  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+  	<input name="query" formControlName="query"/>
+	<button>Search</button>	
+</form>
+
   <!-- Table -->
   <div class="row">
     <div class="col">

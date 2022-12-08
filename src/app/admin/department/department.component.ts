@@ -4,6 +4,7 @@ import { DeptService } from 'src/app/service/adminservice/dept.service';
 import { NotifyService } from '../../service/notify.service';
 import { CreateDepartmentFormComponent } from './create-department-form/create-department-form.component';
 import { UpdateDepartmentFormComponent } from './update-department-form/update-department-form.component';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
 	selector: 'app-department',
@@ -13,21 +14,26 @@ import { UpdateDepartmentFormComponent } from './update-department-form/update-d
 export class DepartmentComponent implements OnInit {
 
 	constructor(private deptService: DeptService, private notify: NotifyService,
-		public dialog: MatDialog
+		public dialog: MatDialog, private formBuilder: FormBuilder
 	) {
 	}
 
-	dataSource;
-	p: number;
+	searchForm = this.formBuilder.group({
+    		query: '',
+  	});
 
-	loadDept() {
-		this.deptService.getListDept().subscribe(data => {
+	dataSource;
+	p: number = 0;
+	seachQuery: string = "test"
+
+	loadDept(title: string, page: number, size: number) {
+		this.deptService.getListDept(title, page, size).subscribe(data => {
 			this.dataSource = data;
 		});
 	}
 
 	ngOnInit() {
-		this.loadDept()
+		this.loadDept("", 0, 1000)
 	}
 
 	xoaKhoa(id) {
@@ -41,8 +47,7 @@ export class DepartmentComponent implements OnInit {
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
-
-			this.loadDept()
+			this.loadDept("", 0, 1000)
 		});
 	}
 
@@ -52,8 +57,12 @@ export class DepartmentComponent implements OnInit {
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
-
-			this.loadDept()
+			this.loadDept("", 0, 1000)
 		});
+	}
+
+	onSearch() {
+		console.log(this.searchForm.value.query)
+		this.loadDept(this.searchForm.value.query, 0, 1000)
 	}
 }

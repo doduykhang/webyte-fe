@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormBuilder } from '@angular/forms';
 import { MatDialog } from '@angular/material';
 import { DeptService } from 'src/app/service/adminservice/dept.service';
 import { DoctorServiceService } from 'src/app/service/adminservice/doctor-service.service';
@@ -16,7 +16,7 @@ import { UpdateDoctorFormComponent } from './update-doctor-form/update-doctor-fo
 export class ListDoctorComponent implements OnInit {
 
 	constructor(private doctorService: DoctorServiceService, private deptService: DeptService,
-		private notify: NotifyService, public dialog: MatDialog) {
+		private notify: NotifyService, public dialog: MatDialog, private formBuilder: FormBuilder) {
 	}
 
 	listDoctor;
@@ -25,8 +25,12 @@ export class ListDoctorComponent implements OnInit {
 	dept: FormControl = new FormControl('Lọc theo khoa');
 	p: number;
 
-	loadDoctor() {
-		this.doctorService.getListDoctor().subscribe(data => {
+	searchForm = this.formBuilder.group({
+    		query: '',
+  	});
+
+	loadDoctor(name: string = "", page: number = 0, size: number = 1000) {
+		this.doctorService.getListDoctor(name, page, size).subscribe(data => {
 			this.listDoctorOrigin = data;
 			this.listDoctor = this.listDoctorOrigin;
 		});
@@ -75,4 +79,7 @@ export class ListDoctorComponent implements OnInit {
 		});
 	}
 
+	onSearch() {
+		this.loadDoctor(this.searchForm.value.query, 0, 1000)
+	}
 }

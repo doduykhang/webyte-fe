@@ -4,6 +4,10 @@
   <button (click)="openCreate()">create</button>
   </div>
   <!-- Table -->
+  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+  	<input name="query" formControlName="query"/>
+	<button>Search</button>	
+</form>
   <div class="row">
     <div class="col">
       <div class="card shadow">

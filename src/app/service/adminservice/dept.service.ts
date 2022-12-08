@@ -18,8 +18,8 @@ export class DeptService {
 		}),
 	};
 	constructor(private httpclient: HttpClient) { }
-	public getListDept(page: number = 0, size: number = 10): Observable<any> {
-		const url = `${environment.deptURL}find-all?page=${page}&size=${size}`;
+	public getListDept(title = "", page: number = 0, size: number = 10): Observable<any> {
+		const url = `${environment.deptURL}find-all?page=${page}&size=${size}&title=${title}`;
 		return this.httpclient.get<any>(url, this.httpOptions); // Nhớ import catchError
 	}
 
