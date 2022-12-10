@@ -19,7 +19,7 @@ export class NewsService {
 	constructor(private httpclient: HttpClient, ) { }
 
 	public getListNews(): Observable<any> {
-		const url = `${environment.newURL}`;
+		const url = `${environment.newURL}find-all`;
 		return this.httpclient.get<any>(url, this.httpOptions);// Nhớ import catchError
 	}
 

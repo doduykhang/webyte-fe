@@ -52,7 +52,7 @@ export class RegisterScheduleComponent implements OnInit, DoCheck {
   }
 
   getListScheduleOfDoctor() {
-    this.scheduleService.getListSchedule(this.doctorInfo.doctorid).toPromise().then(
+    this.scheduleService.getListSchedule(this.doctorInfo.userId).toPromise().then(
         data => {
           if (data) {
             this.listSchedule = data;
