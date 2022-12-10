@@ -32,7 +32,7 @@ export class AskAnswerComponent implements OnInit {
   post = false;
   ngOnInit() {
     this.headerService.setActive('ask-answer');
-    this.question.accountId = this.authenticate.currentUserValue.id;
+    this.question.userId = this.authenticate.currentUserValue.id;
     this.accountid = this.authenticate.currentUserValue.id;
     this.toppicService.getAllTopics().subscribe(data => {
       this.listTopics = data;
@@ -65,9 +65,9 @@ export class AskAnswerComponent implements OnInit {
     this.data = event.editor.getData();
   }
   sendAnswer(questionId) {
-    this.newAnswer.accountid = this.accountid;
-    this.newAnswer.answercontent = this.answer.value;
-    this.newAnswer.questionid = questionId;
+    this.newAnswer.userId = this.accountid;
+    this.newAnswer.answerContent = this.answer.value;
+    this.newAnswer.questionId = questionId;
     this.answerService.insertAllAnswer(this.newAnswer).subscribe(data => {
       this.questionService.getAllQuestion().subscribe(data => {
         this.listQuestion = data;

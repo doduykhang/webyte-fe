@@ -16,7 +16,7 @@ export class TopicserviceService {
   };
   constructor(private httpclient: HttpClient) { }
   public getAllTopics(): Observable<any> {
-    const url = `${environment.topicURL}get-all-topic`;
+    const url = `${environment.topicURL}find-all`;
     return this.httpclient.get<any>(url);// Nhớ import catchError
   }
 
