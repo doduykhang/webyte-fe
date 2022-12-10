@@ -1,59 +1,68 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
-import {DeptService} from 'src/app/service/adminservice/dept.service';
-import {NotifyService} from '../../service/notify.service';
+import { DeptService } from 'src/app/service/adminservice/dept.service';
+import { NotifyService } from '../../service/notify.service';
 import { CreateDepartmentFormComponent } from './create-department-form/create-department-form.component';
 import { UpdateDepartmentFormComponent } from './update-department-form/update-department-form.component';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-department',
-  templateUrl: './department.component.html',
-  styleUrls: ['./department.component.css']
+	selector: 'app-department',
+	templateUrl: './department.component.html',
+	styleUrls: ['./department.component.css']
 })
 export class DepartmentComponent implements OnInit {
 
-  constructor(private deptService: DeptService, private notify: NotifyService,
-              public dialog: MatDialog
-    ) {
-  }
+	constructor(private deptService: DeptService, private notify: NotifyService,
+		public dialog: MatDialog, private formBuilder: FormBuilder
+	) {
+	}
 
-  dataSource;
-  p: number;
+	searchForm = this.formBuilder.group({
+    		query: '',
+  	});
 
-  loadDept(){
-    this.deptService.getListDept().subscribe(data => {
-      this.dataSource = data;
-    });
-  }
+	dataSource;
+	p: number = 0;
+	seachQuery: string = "test"
 
-  ngOnInit() {
-    this.loadDept()
-  }
+	loadDept(title: string, page: number, size: number) {
+		this.deptService.getListDept(title, page, size).subscribe(data => {
+			this.dataSource = data;
+		});
+	}
 
-  xoaKhoa(id) {
-    this.notify.xoaKhoa(id);
-  }
+	ngOnInit() {
+		this.loadDept("", 0, 1000)
+	}
 
-  update(item) {
-    const dialogRef = this.dialog.open(UpdateDepartmentFormComponent, {
-      width: '250px',
-      data: item
-    });
+	xoaKhoa(id) {
+		this.notify.xoaKhoa(id);
+	}
 
-    dialogRef.afterClosed().subscribe(result => {
+	update(item) {
+		const dialogRef = this.dialog.open(UpdateDepartmentFormComponent, {
+			width: '250px',
+			data: item
+		});
 
-      this.loadDept()
-    });
-  }
+		dialogRef.afterClosed().subscribe(result => {
+			this.loadDept("", 0, 1000)
+		});
+	}
 
-  openCreate() {
-    const dialogRef = this.dialog.open(CreateDepartmentFormComponent, {
-      width: '250px',
-    });
+	openCreate() {
+		const dialogRef = this.dialog.open(CreateDepartmentFormComponent, {
+			width: '250px',
+		});
 
-    dialogRef.afterClosed().subscribe(result => {
+		dialogRef.afterClosed().subscribe(result => {
+			this.loadDept("", 0, 1000)
+		});
+	}
 
-      this.loadDept()
-    });
-  }
+	onSearch() {
+		console.log(this.searchForm.value.query)
+		this.loadDept(this.searchForm.value.query, 0, 1000)
+	}
 }

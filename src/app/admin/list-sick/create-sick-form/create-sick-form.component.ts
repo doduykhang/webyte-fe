@@ -6,48 +6,49 @@ import { NotifyService } from 'src/app/service/notify.service';
 import { CreateMedicineFormComponent } from '../../list-medicine/create-medicine-form/create-medicine-form.component';
 
 @Component({
-  selector: 'app-create-sick-form',
-  templateUrl: './create-sick-form.component.html',
-  styleUrls: ['./create-sick-form.component.css']
+	selector: 'app-create-sick-form',
+	templateUrl: './create-sick-form.component.html',
+	styleUrls: ['./create-sick-form.component.css']
 })
 export class CreateSickFormComponent implements OnInit {
-  myForm: FormGroup;
-  sicktypes
+	myForm: FormGroup;
+	sicktypes
 
-  constructor(private sickService: SickService,
-              private notify: NotifyService, private fb:FormBuilder,
-              public dialogRef: MatDialogRef<CreateMedicineFormComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any,
-              ) {
-  }
+	constructor(private sickService: SickService,
+		private notify: NotifyService, private fb: FormBuilder,
+		public dialogRef: MatDialogRef<CreateMedicineFormComponent>,
+		@Inject(MAT_DIALOG_DATA) public data: any,
+	) {
+	}
 
-  ngOnInit() {
-    this.myForm = this.fb.group({
-      sickName: "",
-      sickTypeId: 1
-    })
-    console.log(this.data);
-    
-    this.sicktypes = this.data
-  }
+	ngOnInit() {
+		this.myForm = this.fb.group({
+			sickName: "",
+			typeSickId: 1,
+			description: "",
+			symptonIds: []
+		})
 
-  onSubmit(){
-    try {
+		this.sicktypes = this.data
+	}
 
-      this.sickService.create(this.myForm.value).subscribe(data => {
-        this.notify.notifySuccessNotLink("Created", "Created")
-      }, err =>{
-        this.notify.notifiError("Error", err)
-      })
+	onSubmit() {
+		try {
+			this.myForm.value.symptomIds = []
+			this.sickService.create(this.myForm.value).subscribe(data => {
+				this.notify.notifySuccessNotLink("Created", "Created")
+			}, err => {
+				this.notify.notifiError("Error", err)
+			})
 
-    } catch {
+		} catch {
 
-    }
+		}
 
-  }
+	}
 
-  onNoClick(): void {
+	onNoClick(): void {
 
-    this.dialogRef.close();
-  }
+		this.dialogRef.close();
+	}
 }

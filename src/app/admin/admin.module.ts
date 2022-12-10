@@ -28,55 +28,59 @@ import { CreateMedicineFormComponent } from './list-medicine/create-medicine-for
 import { UpdateMedicineFormComponent } from './list-medicine/update-medicine-form/update-medicine-form.component';
 import { CreateSickFormComponent } from './list-sick/create-sick-form/create-sick-form.component';
 import { UpdateSickFormComponent } from './list-sick/update-sick-form/update-sick-form.component';
+import { CreateNewsFormComponent } from './list-news/create-news-form/create-news-form.component';
+import { UpdateNewsFormComponent } from './list-news/update-news-form/update-news-form.component';
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    ListAppointmentComponent,
-    ListOfAppointmentComponent,
-    DepartmentComponent,
-    ListDoctorComponent,
-    ListPatientComponent,
-    ListMedicineComponent,
-    ListSickComponent,
-    NewsComponent,
-    MyAccountComponent,
-    CreateDoctorFormComponent,
-    UpdateDoctorFormComponent,
-    CreateDepartmentFormComponent,
-    UpdateDepartmentFormComponent,
-    CreateMedicineFormComponent,
-    UpdateMedicineFormComponent,
-    CreateSickFormComponent,
-    UpdateSickFormComponent],
-  imports: [
+	declarations: [
+		HomeComponent,
+		ListAppointmentComponent,
+		ListOfAppointmentComponent,
+		DepartmentComponent,
+		ListDoctorComponent,
+		ListPatientComponent,
+		ListMedicineComponent,
+		ListSickComponent,
+		NewsComponent,
+		MyAccountComponent,
+		CreateDoctorFormComponent,
+		UpdateDoctorFormComponent,
+		CreateDepartmentFormComponent,
+		UpdateDepartmentFormComponent,
+		CreateMedicineFormComponent,
+		UpdateMedicineFormComponent,
+		CreateSickFormComponent,
+		UpdateSickFormComponent,
+		CreateNewsFormComponent,
+		UpdateNewsFormComponent],
+	imports: [
 
-    CommonModule,
-    RouterModule.forChild(AdminRoutes),
-    NgbModule,
-    FormsModule,
-    MatTooltipModule,
-    MatTableModule,
-    MatMenuModule,
-    MatIconModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatNativeDateModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    NgxPaginationModule,
-    MatDialogModule
-  ],
-  providers: [
-    {
-      provide: MatDialogRef,
-      useValue: {}
-    },
-  ],
-  entryComponents: [CreateDoctorFormComponent, UpdateDoctorFormComponent, CreateDepartmentFormComponent,
-    UpdateDepartmentFormComponent, CreateMedicineFormComponent, UpdateMedicineFormComponent,
-    CreateSickFormComponent, UpdateSickFormComponent
-  ]
+		CommonModule,
+		RouterModule.forChild(AdminRoutes),
+		NgbModule,
+		FormsModule,
+		MatTooltipModule,
+		MatTableModule,
+		MatMenuModule,
+		MatIconModule,
+		MatSelectModule,
+		MatFormFieldModule,
+		MatNativeDateModule,
+		ReactiveFormsModule,
+		MatInputModule,
+		NgxPaginationModule,
+		MatDialogModule
+	],
+	providers: [
+		{
+			provide: MatDialogRef,
+			useValue: {}
+		},
+	],
+	entryComponents: [CreateDoctorFormComponent, UpdateDoctorFormComponent, CreateDepartmentFormComponent,
+		UpdateDepartmentFormComponent, CreateMedicineFormComponent, UpdateMedicineFormComponent,
+		CreateSickFormComponent, UpdateSickFormComponent, CreateNewsFormComponent, UpdateNewsFormComponent
+	]
 })
 
 export class AdminModule {

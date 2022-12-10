@@ -5,45 +5,48 @@ import { MedicineService } from 'src/app/service/adminservice/medicine.service';
 import { NotifyService } from 'src/app/service/notify.service';
 
 @Component({
-  selector: 'app-create-medicine-form',
-  templateUrl: './create-medicine-form.component.html',
-  styleUrls: ['./create-medicine-form.component.css']
+	selector: 'app-create-medicine-form',
+	templateUrl: './create-medicine-form.component.html',
+	styleUrls: ['./create-medicine-form.component.css']
 })
 export class CreateMedicineFormComponent implements OnInit {
-  myForm: FormGroup;
+	myForm: FormGroup;
 
-  constructor(private medicineService: MedicineService,
-              private notify: NotifyService, private fb:FormBuilder,
-              public dialogRef: MatDialogRef<CreateMedicineFormComponent>,
-              ) {
-  }
+	constructor(private medicineService: MedicineService,
+		private notify: NotifyService, private fb: FormBuilder,
+		public dialogRef: MatDialogRef<CreateMedicineFormComponent>,
+	) {
+	}
 
-  ngOnInit() {
-    this.myForm = this.fb.group({
-      medicinename: "",
-      status: "",
-      count: 0,
-      pack: ""
-    })
-  }
+	ngOnInit() {
+		this.myForm = this.fb.group({
+			medicineName: "",
+			medicineStatus: "",
+			medicineQuantity: 0,
+			medicinePack: "",
+			medicinePrice: 0,
+			medicineType: "",
+			medicineDescription: ""
+		})
+	}
 
-  onSubmit(){
-    try {
+	onSubmit() {
+		try {
 
-      this.medicineService.create(this.myForm.value).subscribe(data => {
-        this.notify.notifySuccessNotLink("Created", "Created")
-      }, err =>{
-        this.notify.notifiError("Error", err)
-      })
+			this.medicineService.create(this.myForm.value).subscribe(data => {
+				this.notify.notifySuccessNotLink("Created", "Created")
+			}, err => {
+				this.notify.notifiError("Error", err)
+			})
 
-    } catch {
+		} catch {
 
-    }
+		}
 
-  }
+	}
 
-  onNoClick(): void {
+	onNoClick(): void {
 
-    this.dialogRef.close();
-  }
+		this.dialogRef.close();
+	}
 }

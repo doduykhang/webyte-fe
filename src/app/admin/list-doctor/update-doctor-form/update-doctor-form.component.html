@@ -1,48 +1,36 @@
 <div mat-dialog-content>
-
-    <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <form class="form" [formGroup]="myForm" #updateForm="ngForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <mat-label>First name</mat-label>
+            <input required matInput formControlName="userFName">
+        </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="fullname">
+            <mat-label>Last name</mat-label>
+        	<input required matInput formControlName="userLName">
         </mat-form-field>
     
         <mat-form-field>
             <mat-label>Email</mat-label>
-            <input matInput formControlName="email">
+            <input required matInput formControlName="email">
         </mat-form-field>
     
         <mat-form-field>
             <mat-label>Phone</mat-label>
-            <input matInput formControlName="phone">
+            <input required matInput formControlName="phoneNum">
         </mat-form-field>
     
         <mat-form-field>
             <mat-label>Address</mat-label>
-            <input matInput formControlName="address">
+            <input required matInput formControlName="address">
         </mat-form-field>
     
         <mat-form-field>
-            <mat-label>Address</mat-label>
-            <input matInput type="date" formControlName="birthday">
-        </mat-form-field>
-    
-        <mat-form-field>
-            <mat-label>Image</mat-label>
-            <input matInput formControlName="img">
+            <mat-label>Birth date</mat-label>
+            <input required matInput type="date" formControlName="birthDate">
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Department</mat-label>
-            <mat-select formControlName="deptId">
-                <mat-option *ngFor="let dept of listDept" [value]="dept.deptid">
-                    {{dept.deptname}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-
-        <button type="submit">Create</button>
+        <button type="submit" [disabled]="!updateForm.valid">Update</button>
     </form>
 </div>
 <div mat-dialog-actions>
