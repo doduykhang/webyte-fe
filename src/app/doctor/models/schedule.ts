@@ -1,6 +1,8 @@
 export class Schedule {
   scheduleid: number;
   doctorid: number;
-  dutyday: Date;
+  dayOfWeek: Date;
   dutyweek: string;
+  startTime: string;
+  endTime: string
 }

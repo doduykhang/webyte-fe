@@ -25,7 +25,7 @@ export class RegisterScheduleComponent implements OnInit, DoCheck {
     this.checkSaturday = false;
   }
 
-  displayedColumns: string[] = ['select', 'position', 'weekdays', 'date', 'status'];
+  displayedColumns: string[] = ['select', 'position', 'weekdays', 'date', 'startTime', 'endTime', 'status'];
   dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
   selection = new SelectionModel<PeriodicElement>(true, []);
 
@@ -37,11 +37,11 @@ export class RegisterScheduleComponent implements OnInit, DoCheck {
   ngOnInit() {
     let date = new Date();
     console.log(date.getDate());
-    if (date.getDay() !== 6) {
+    if (date.getDate() !== 6 && false) {
       for (let i = 1; i < 8; i++) {
         const day = moment().add(i, 'days').format('YYYY MM DD');
         date = new Date(day);
-        ELEMENT_DATA[i - 1].date = moment(day).format('DD-MM-YYYY');
+        ELEMENT_DATA[i - 1].dayOfWeek = date.toISOString()
         ELEMENT_DATA[i - 1].weekdays = this.changeDay(date.getDay());
         ELEMENT_DATA[i - 1].status = 'Chưa đăng ký';
       }
@@ -57,17 +57,22 @@ export class RegisterScheduleComponent implements OnInit, DoCheck {
           if (data) {
             this.listSchedule = data;
             let dateNow = new Date();
-            for (let i = 2; i < 9; i++) {
-              const date = new Date(this.listSchedule[i - 2].dutyday);
+            for (let i = 0; i < this.listSchedule.length; i++) {
+              const date = new Date(this.listSchedule[i].dayOfWeek);
+	      
+	      const dateIndex = date.getDay()
+	      console.log("date index",dateIndex)
               const day = moment().add(i, 'days');
               // @ts-ignore
               dateNow = new Date(day);
               if (date.getDate() === dateNow.getDate()) {
-                ELEMENT_DATA[i - 2].status = 'Đã đăng ký';
+                ELEMENT_DATA[dateIndex].status = 'Đã đăng ký';
               }
-              ELEMENT_DATA[i - 2].date = moment(day).format('DD-MM-YYYY');
-              ELEMENT_DATA[i - 2].weekdays = this.changeDay(date.getDay());
-              ELEMENT_DATA[i - 2].status = 'Chưa đăng ký';
+              ELEMENT_DATA[dateIndex].dayOfWeek = date.toISOString();
+              ELEMENT_DATA[dateIndex].weekdays = this.changeDay(date.getDay());
+              ELEMENT_DATA[dateIndex].status = 'Registerd';
+              ELEMENT_DATA[dateIndex].startTime = this.listSchedule[i].startTime;
+              ELEMENT_DATA[dateIndex].endTime = this.listSchedule[i].endTime;
             }
           }
         }, error => {
@@ -138,22 +143,32 @@ export class RegisterScheduleComponent implements OnInit, DoCheck {
 
   }
 
+  register() {
+    this.scheduleService.createSchedule(this.selection.selected,this.doctorInfo.userId).toPromise().then(
+        data => {
+        }, error => {
+          this.notify.notifiError('Lỗi', 'Không tồn tại danh sách đăng ký lịch trực');
+        }
+      );
+  }
 }
 
 export interface PeriodicElement {
   weekdays: string;
   position: number;
-  date: string;
+  dayOfWeek: string;
+  startTime: string,
+  endTime: string,
   status: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, weekdays: '', date: '', status: 'H'},
-  {position: 2, weekdays: '', date: '', status: 'H'},
-  {position: 3, weekdays: '', date: '', status: 'H'},
-  {position: 4, weekdays: '', date: '', status: 'H'},
-  {position: 5, weekdays: '', date: '', status: 'H'},
-  {position: 6, weekdays: '', date: '', status: 'H'},
-  {position: 7, weekdays: '', date: '', status: 'H'},
+  {position: 1, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H'},
+  {position: 2, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H'},
+  {position: 3, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H'},
+  {position: 4, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H'},
+  {position: 5, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H'},
+  {position: 6, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H'},
+  {position: 7, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H'},
 
 ];
