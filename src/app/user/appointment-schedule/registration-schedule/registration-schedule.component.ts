@@ -110,8 +110,10 @@ export class RegistrationScheduleComponent implements OnInit {
 
   }
 
-  ngOnInit() {
-    this.appontmentSchedule.patientid = +this.patient.currentPatientValue.id;
+  ngOnInit() {	
+    this.authentication.currentUser.source.toPromise().then((value:any) => {
+	this.appontmentSchedule.userId = value.id
+    });
     this.headerService.setActive('appointment-schedule');
   }
 
@@ -171,11 +173,12 @@ export class RegistrationScheduleComponent implements OnInit {
 
   payment() {
     let id;
-    this.appontmentSchedule.date = this.formDangKy.controls.ngayKham.value;
-    this.appontmentSchedule.time = this.formDangKy.controls.gioKham.value;
-    this.appontmentSchedule.typeclinic = this.formDangKy.controls.phuongThuc.value;
+    this.appontmentSchedule.appointmentDate = new Date(this.formDangKy.controls.ngayKham.value);
+    this.appontmentSchedule.appointmentTime = this.formDangKy.controls.gioKham.value;
+    this.appontmentSchedule.appointmentType = this.formDangKy.controls.phuongThuc.value;
     this.appontmentSchedule.price = this.quydoi;
-    if( this.appontmentSchedule.typeclinic==="Online"){
+    console.log("schedule",this.appontmentSchedule)
+    if( this.appontmentSchedule.appointmentType === "Online"){
       Swal.fire({
         title: 'Xác nhận thanh toán',
         text: 'Giá tiền là: ' + this.formDangKy.controls.gia.value + 'VNĐ  ( Được quy đổi sang là:' + this.quydoi + ' $)',
@@ -215,7 +218,7 @@ export class RegistrationScheduleComponent implements OnInit {
     if (this.formDangKy.controls.phuongThuc.value === "Online") {
       const date = this.formDangKy.controls.ngayKham.value;
       console.log(date + '' + deptid);
-      this.doctorService.getListDoctorByDept(deptid, date).subscribe(data => {
+      this.doctorService.getListDoctorByDept(deptid).subscribe(data => {
         console.log(data);
         this.listDoctor = data;
       });
@@ -224,7 +227,7 @@ export class RegistrationScheduleComponent implements OnInit {
   }
 
   doctorChange(doctorid) {
-    this.appontmentSchedule.doctorid = doctorid;
+    this.appontmentSchedule.doctorId = doctorid;
     let date: string = this.formDangKy.controls.ngayKham.value;
     this.doctorService.getPriceDoctor(doctorid, date).subscribe(data => {
       console.log(data);
@@ -249,7 +252,7 @@ export class RegistrationScheduleComponent implements OnInit {
         if (item.time === name) {
           item.class = 'btn-color';
           this.formDangKy.controls.gioKham.setValue(name);
-          this.appontmentSchedule.number = +this.time.indexOf(item);
+          this.appontmentSchedule.appointmentNumber = +this.time.indexOf(item);
         }
         else {
 

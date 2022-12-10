@@ -27,6 +27,11 @@ export class AppointmentScheduleService {
     const url = `${environment.appointmentURL}all`;
     return this.httpclient.get<any>(url, this.httpOptions);// Nhớ import catchError
   }
+
+  public getListAppointOfUser(id: number): Observable<any> {
+    const url = `${environment.appointmentURL}user/${id}`;
+    return this.httpclient.get<any>(url, this.httpOptions);// Nhớ import catchError
+  }
   public postAppoint(data:appointmentSchedule): Observable<any> {
     console.log('token ' + this.authentication.currentUserValue.token);
     const url = `${environment.appointmentURL}`;

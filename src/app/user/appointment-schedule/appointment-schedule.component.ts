@@ -5,6 +5,8 @@ import {NotifyService} from 'src/app/service/notify.service';
 import {AppointmentScheduleService} from 'src/app/service/userservice/appointment-schedule.service';
 import {HeaderserviceService} from 'src/app/service/userservice/headerservice.service';
 import Swal from 'sweetalert2';
+import { AuthenticationService } from 'src/app/service/authentication.service';
+import { UserserviceService } from 'src/app/service/userservice.service';
 
 @Component({
   selector: 'app-appointment-schedule',
@@ -13,14 +15,11 @@ import Swal from 'sweetalert2';
 })
 export class AppointmentScheduleComponent implements OnInit, DoCheck {
   constructor(private headerService: HeaderserviceService, private route: Router, 
-              private appoinentService: AppointmentScheduleService, private notify: NotifyService) {
-    appoinentService.getListAppoint().subscribe((data) => {
-      this.listAppointmentScheduleOrigin = data;
-      this.listAppointmentSchedule = this.listAppointmentScheduleOrigin;
-      console.log(data);
-    });
+              private appoinentService: AppointmentScheduleService, private notify: NotifyService,
+	     private authentication: AuthenticationService, private patient: UserserviceService) {
 
   }
+
 
   listAppointmentScheduleOrigin;
   listAppointmentSchedule;
@@ -49,7 +48,15 @@ export class AppointmentScheduleComponent implements OnInit, DoCheck {
 
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.headerService.setActive('appointment-schedule');
+    let id = this.authentication.currentUserValue.id;
+
+    	this.appoinentService.getListAppointOfUser(id).subscribe((data) => {
+      		this.listAppointmentScheduleOrigin = data;
+      		this.listAppointmentSchedule = this.listAppointmentScheduleOrigin;
+      		console.log(data);
+    	});
     this.headerService.setActive('appointment-schedule');
   }
 
