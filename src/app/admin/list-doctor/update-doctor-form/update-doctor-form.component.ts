@@ -47,7 +47,8 @@ export class UpdateDoctorFormComponent implements OnInit {
 				deptid: this.myForm.value.deptId
 			}
 			this.doctorService.updateDoctor(data).subscribe(data => {
-				this.notify.notifySuccessNotLink("Updated", "Updated")
+				this.notify.notifySuccessNotLink("Sửa thành công", "")
+				this.dialogRef.close();
 			}, err => {
 				this.notify.notifiError("Error", err)
 			})

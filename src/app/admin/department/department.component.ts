@@ -42,7 +42,7 @@ export class DepartmentComponent implements OnInit {
 
 	update(item) {
 		const dialogRef = this.dialog.open(UpdateDepartmentFormComponent, {
-			width: '250px',
+			width: '500px',
 			data: item
 		});
 
@@ -53,7 +53,7 @@ export class DepartmentComponent implements OnInit {
 
 	openCreate() {
 		const dialogRef = this.dialog.open(CreateDepartmentFormComponent, {
-			width: '250px',
+			width: '500px',
 		});
 
 		dialogRef.afterClosed().subscribe(result => {

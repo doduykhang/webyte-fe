@@ -1,28 +1,36 @@
-    <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+<div mat-dialog-content>
+    <form class="form" [formGroup]="myForm" #createForm="ngForm" (ngSubmit)="onSubmit()">
 
         <mat-form-field>
-            <mat-label>Tile</mat-label>
-            <input matInput formControlName="title">
+            <mat-label>Tiêu đề</mat-label>
+            <input required matInput formControlName="title">
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Content</mat-label>
-            <input matInput formControlName="content">
+            <mat-label>Nội dung</mat-label>
+            <input required matInput formControlName="content">
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Image</mat-label>
-            <input matInput formControlName="img">
+            <mat-label>Tác giả</mat-label>
+            <input required matInput formControlName="author">
         </mat-form-field>
 
-        <mat-form-field>
-            <mat-label>Author</mat-label>
-            <input  matInput formControlName="author">
-        </mat-form-field>
+        <!-- <mat-label>Hình ảnh</mat-label> -->
+        <div class="mb-3">
+            <img id="previewImg" src="#" alt="Image" style="max-width:400px; max-height:250px"/>
+            <button type="button" mat-raised-button (click)="fileInput.click()">Chọn file</button>
+            <input hidden (change)="onFileSelected()" #fileInput type="file" id="file">
+        </div>
+        <!-- <input required matInput formControlName="img"> -->
 
-        <mat-form-field>
+        <!-- <mat-form-field>
             <mat-label>Text</mat-label>
-            <input  matInput formControlName="text">
-        </mat-form-field>
-
-        <button type="submit">Create</button>
+            <input matInput formControlName="text">
+        </mat-form-field> -->
+    </form>
+</div>
+<div mat-dialog-actions style="display:flex; justify-content: flex-end;">
+    <button type="submit" (click)="onSubmit()" mat-raised-button color="primary" [disabled]="!myForm.valid">Tạo</button>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
+</div>

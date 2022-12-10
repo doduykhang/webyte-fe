@@ -31,7 +31,8 @@ export class UpdateDepartmentFormComponent implements OnInit {
     try {
 
       this.deptService.updateDept(this.myForm.value).subscribe(data => {
-        this.notify.notifySuccessNotLink("Updated", "Updated")
+        this.notify.notifySuccessNotLink("Sửa thành công", "")
+        this.dialogRef.close();
       }, err =>{
         this.notify.notifiError("Error", err)
       })

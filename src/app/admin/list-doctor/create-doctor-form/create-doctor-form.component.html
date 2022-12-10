@@ -1,49 +1,52 @@
 <div mat-dialog-content>
-    <form class="form" [formGroup]="myForm" #createForm="ngForm" (ngSubmit)="onSubmit()">
+    <form class="form" [formGroup]="myForm"  #createForm="ngForm" (ngSubmit)="onSubmit()">
 
-    
+        <div style="text-align:center;">
+            <h2>Tạo mới bác sĩ</h2>
+        </div>
+
         <mat-form-field>
-            <mat-label>Username</mat-label>
+            <mat-label>Tài khoản</mat-label>
             <input required matInput formControlName="username">
         </mat-form-field>
-        
+
         <mat-form-field>
-            <mat-label>First name</mat-label>
+            <mat-label>Họ</mat-label>
             <input required matInput formControlName="userFName">
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Last name</mat-label>
+            <mat-label>Tên</mat-label>
             <input required matInput formControlName="userLName">
         </mat-form-field>
-    
+
         <mat-form-field>
             <mat-label>Email</mat-label>
             <input required matInput formControlName="email">
         </mat-form-field>
-    
+
         <mat-form-field>
-            <mat-label>Phone</mat-label>
+            <mat-label>SĐT</mat-label>
             <input required matInput formControlName="phoneNum">
         </mat-form-field>
-    
+
         <mat-form-field>
-            <mat-label>Address</mat-label>
+            <mat-label>Địa chỉ</mat-label>
             <input required matInput formControlName="address">
         </mat-form-field>
-    
+
         <mat-form-field>
-            <mat-label>Birthdate</mat-label>
+            <mat-label>Ngày sinh</mat-label>
             <input required matInput type="date" formControlName="birthDate">
         </mat-form-field>
-    
 
-	<input required type="file"/>
-
-
-        <button type="submit" [disabled]="!createForm.valid">Create</button>
+        <div class="mb-3">
+            <input required type="file" />
+        </div>
     </form>
 </div>
-<div mat-dialog-actions>
-  <button mat-raised-button (click)="onNoClick()">Cancel</button>
+<div mat-dialog-actions style="display:flex; justify-content: flex-end;">
+    <button type="submit"(click)="onSubmit()" mat-raised-button color="primary" [disabled]="!createForm.valid">Tạo</button>
+
+    <button mat-raised-button (click)="onNoClick()">Hủy</button>
 </div>

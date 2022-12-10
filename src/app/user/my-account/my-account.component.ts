@@ -42,6 +42,7 @@ export class MyAccountComponent implements OnInit {
     this.headerService.setActive('my-account');
     this.addEmployeeForm.controls.img.setValue('bv1.jpg');
     this.patient = this.userService.currentPatientValue;
+    console.log(this.patient)
     console.log(this.patient.fullname);
     console.log(convert(this.patient.birthday));
     this.patient.birthday = convert(this.patient.birthday);

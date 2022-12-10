@@ -1,28 +1,27 @@
 <div mat-dialog-content>
-    <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
-
+    <form class="form" [formGroup]="myForm" #createForm="ngForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
-            <mat-label>Sicknesss name</mat-label>
+            <mat-label>Tên bệnh</mat-label>
             <input matInput formControlName="sickName">
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Sickness description</mat-label>
+            <mat-label>Mô tả bệnh</mat-label>
             <input matInput formControlName="description">
         </mat-form-field>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Sick type</mat-label>
+        <mat-form-field>
+            <mat-label>Loại bệnh</mat-label>
             <mat-select formControlName="typeSickId">
                 <mat-option *ngFor="let type of sicktypes" [value]="type.typeSickId">
                     {{type.typeSickName}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
-
-        <button type="submit">Create</button>
     </form>
 </div>
-<div mat-dialog-actions>
-  <button mat-raised-button (click)="onNoClick()">Cancel</button>
+<div mat-dialog-actions style="display:flex; justify-content: flex-end;">
+    <button type="submit" (click)="onSubmit()" mat-raised-button color="primary"
+        [disabled]="!myForm.valid">Tạo</button>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
 </div>

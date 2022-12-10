@@ -17,8 +17,9 @@ export class MedicineService {
 		}),
 	};
 	constructor(private httpclient: HttpClient) { }
-	public getListMedicine(): Observable<any> {
-		const url = `${environment.medicineURL}find-all`;
+
+	public getListMedicine(title = "", page: number = 0, size: number = 10): Observable<any> {
+		const url = `${environment.medicineURL}find-all?page=${page}&size=${size}&title=${title}`;
 		return this.httpclient.get<any>(url, this.httpOptions); // Nhớ import catchError
 	}
 
