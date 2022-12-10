@@ -1,11 +1,11 @@
 export class Answer{
   public  answerid:number;
 
-	public  answercontent:string;
+	public  answerContent:string;
 
-	public  questionid:number;
+	public  questionId:number;
 
-	public  accountid:number;
+	public  userId:number;
 
 	public  date:Date;
 }
