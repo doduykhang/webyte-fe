@@ -48,7 +48,7 @@ export class ListASComponent implements OnInit {
   }
 
   getListAppointmentSchedule() {
-    this.appointment.getListAppointByDoctor(this.doctorInfo.doctorid).subscribe(data => {
+    this.appointment.getListAppointByDoctor(this.doctorInfo.userId).subscribe(data => {
       if (data) {
         this.existAppSch = true;
         this.listAppSch = data;

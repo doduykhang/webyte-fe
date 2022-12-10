@@ -43,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.headerService.setActive('login');
     this.formLogin = this.formBuilder.group({
       username: ['', [Validators.minLength(5), Validators.maxLength(40), Validators.required]],
-      password: ['', [Validators.minLength(6), Validators.maxLength(40), Validators.required]]
+      password: ['', [ Validators.maxLength(40), Validators.required]]
     });
   }
 

@@ -28,7 +28,7 @@ export class DoctorService {
   }
 
   public getListDoctor(): Observable<any> {
-    const url = `${environment.doctorURL}all`;
+    const url = `${environment.doctorURL}find-all`;
     return this.httpclient.get<any>(url, this.httpOptions); // Nhớ import catchError
   }
 

@@ -18,7 +18,7 @@ export class DeptService {
   };
   constructor(private httpclient: HttpClient) { }
   public getListDept(): Observable<any> {
-    const url = `${environment.deptURL}`;
+    const url = `${environment.deptURL}find-all`;
     return this.httpclient.get<any>(url, this.httpOptions);// Nhớ import catchError
   }
 }
