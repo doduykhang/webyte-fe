@@ -23,6 +23,7 @@ export class UserserviceService {
   }
 
   public get currentPatientValue(): Patient {
+    console.log(this.currentPatientSubject);
     return this.currentPatientSubject.value;
   }
 

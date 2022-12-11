@@ -50,4 +50,24 @@ export class CreateNewsFormComponent implements OnInit {
 		this.dialogRef.close();
 	}
 
+	onFileSelected() {
+		const inputNode: any = document.querySelector('#file');
+		var imageURL =  URL.createObjectURL(inputNode.files[0]);
+		var img = document.getElementById('previewImg')
+		img.setAttribute('src', imageURL);
+		// if (typeof (FileReader) !== 'undefined') {
+		// 	const reader = new FileReader();
+
+		// 	reader.onload = (e: any) => {
+		// 		console.log(e.target.result);
+		// 		var img = document.getElementById('previewImg')
+		// 		var imageURL =  URL.createObjectURL(e.target.result);
+		// 		img.setAttribute('src', imageURL);
+		// 		img.setAttribute('display', "block");
+		// 	};
+
+		// 	reader.readAsArrayBuffer(inputNode.files[0]);
+		// }
+	}
+
 }

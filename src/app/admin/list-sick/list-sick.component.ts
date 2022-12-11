@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SickService } from '../../service/adminservice/sick.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { MatDialog, SELECT_ITEM_HEIGHT_EM } from '@angular/material';
 import { CreateSickFormComponent } from './create-sick-form/create-sick-form.component';
@@ -12,26 +13,32 @@ import { NotifyService } from 'src/app/service/notify.service';
 	styleUrls: ['./list-sick.component.css']
 })
 export class ListSickComponent implements OnInit {
+	myForm: FormGroup;
 	listSick;
 	listSickOriginal;
 	listTypeSick;
 	filterSick;
+	searchForm = this.formBuilder.group({
+		query: '',
+	});
 	typeSick: FormControl = new FormControl('Lọc theo loại bệnh');
 	p: number;
 	constructor(private sickService: SickService,
 		public dialog: MatDialog,
-		public notify: NotifyService
+		public notify: NotifyService,
+		private formBuilder: FormBuilder
 	) {
 		this.filterSick = 'Lọc theo loại bệnh';
 	}
 
 	loadSick() {
+		this.sickService.getListTypeSick().subscribe(data1 => {
+			this.listTypeSick = data1;
+		});
+
 		this.sickService.getListSick().subscribe(data => {
 			this.listSickOriginal = data;
 			this.listSick = this.listSickOriginal;
-		});
-		this.sickService.getListTypeSick().subscribe(data1 => {
-			this.listTypeSick = data1;
 		});
 	}
 
@@ -42,7 +49,7 @@ export class ListSickComponent implements OnInit {
 	filterTypeSick(idtypesick) {
 		console.log(idtypesick);
 		if (idtypesick !== 0 && idtypesick != null) {
-			this.listSick = this.listSickOriginal.filter(a => a.sicktypeid === idtypesick);
+			this.listSick = this.listSickOriginal.filter(a => a.typeSickDTO.typeSickId === idtypesick);
 		} else {
 			this.listSick = this.listSickOriginal;
 		}
@@ -50,7 +57,7 @@ export class ListSickComponent implements OnInit {
 
 	create() {
 		const dialogRef = this.dialog.open(CreateSickFormComponent, {
-			width: '250px',
+			width: '500px',
 			data: this.listTypeSick
 		});
 		dialogRef.afterClosed().subscribe(result => {
@@ -60,7 +67,7 @@ export class ListSickComponent implements OnInit {
 
 	update(item) {
 		const dialogRef = this.dialog.open(UpdateSickFormComponent, {
-			width: '250px',
+			width: '500px',
 			data: {
 				sick: item,
 				sicktypes: this.listTypeSick

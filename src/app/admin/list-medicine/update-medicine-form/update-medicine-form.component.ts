@@ -26,11 +26,29 @@ export class UpdateMedicineFormComponent implements OnInit {
     })
   }
 
+  types = [{ value: "Thuốc hạ sốt, kháng viêm" },
+	{ value: "Thuốc giảm đau" },
+	{ value: "Thuốc tiêu hóa" },
+	{ value: "Thuốc da liễu" },
+	{ value: "Thuốc sát trùng" },
+	{ value: "Nước muối sinh lý" },
+	{ value: "Các thuốc trị bệnh mãn tính" },
+	{ value: "Các thuốc đặc trị" },
+	{ value: "Các thuốc khác" }
+	];
+
+	packs = [{ value: "Vỉ" },
+	{ value: "Ống" },
+	{ value: "Hộp" },
+	{ value: "Khác" }
+	];
+
   onSubmit(){
     try {
 
       this.medicineService.update(this.myForm.value).subscribe(data => {
-        this.notify.notifySuccessNotLink("Created", "Created")
+        this.notify.notifySuccessNotLink("Sửa thành công", "")
+        this.dialogRef.close();
       }, err =>{
         this.notify.notifiError("Error", err)
       })
