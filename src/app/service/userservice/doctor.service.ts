@@ -32,8 +32,8 @@ export class DoctorService {
     return this.httpclient.get<any>(url, this.httpOptions); // Nhớ import catchError
   }
 
-  public getListDoctorByDept(deptid, date): Observable<any> {
-    const url = `${environment.doctorURL}` + deptid + '/' + date;
+  public getListDoctorByDept(deptid): Observable<any> {
+    const url = `${environment.doctorURL}department/${deptid}` ;
     return this.httpclient.get<any>(url, this.httpOptions); // Nhớ import catchError
   }
 

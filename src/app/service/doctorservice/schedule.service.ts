@@ -19,8 +19,14 @@ export class ScheduleService {
     }),
   };
   constructor(private httpclient: HttpClient, private authentication: AuthenticationService) { }
+
+  public createSchedule(shedule: any, id: number): Observable<any> {
+    const url = `${environment.scheduleURL}${id}`;
+    return this.httpclient.post<any>(url, shedule, this.httpOptions); // Nhớ import catchError
+  }
+
   public getListSchedule(id: number): Observable<any> {
-    const url = `${environment.scheduleURL}all-doctor-schedule/${id}`;
+    const url = `${environment.scheduleURL}${id}`;
     return this.httpclient.get<any>(url, this.httpOptions); // Nhớ import catchError
   }
 }

@@ -45,6 +45,11 @@
         </mat-expansion-panel-header>
         <div style="margin-left: 50px;">
           <div  *ngFor="let rep of item.answerDTOs ">
+	<div style="display: flex;">
+              <img src="assets/{{rep.image}}" style="width:30px ;height:30px ;
+                border-radius: 50%; margin-right: 20px;" />
+              	<mat-panel-title><b>{{rep.userDTO.userId}}: </b>  {{rep.userDTO.userFName}} {{rep.userDTO.userLName}}</mat-panel-title>
+            </div>
             <mat-panel-description style="margin-left: 50px;">{{ rep.answerContent }}</mat-panel-description>
             <mat-panel-description class="justify-content-end">
               {{rep.date|date:'dd-MM-yyyy'}}

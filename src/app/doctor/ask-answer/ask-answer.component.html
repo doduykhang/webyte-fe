@@ -34,24 +34,24 @@
           <mat-panel-title>
             <img src="assets/{{item.img}}" style="width:30px ;height:30px ;
               border-radius: 50%; margin-right: 20px;" />
-            <span><b>Bệnh nhân: </b> {{item.questionDTO.accountName}}</span>
+            <span><b>Bệnh nhân: </b> {{item.userDTO.userFName}} {{item.userDTO.userLName}}</span>
           </mat-panel-title>
-          <mat-panel-description [innerHtml]="item.questionDTO.questionContent">
+          <mat-panel-description [innerHtml]="item.questionContent">
           </mat-panel-description>
           <mat-panel-description class="justify-content-end">
-            {{item.questionDTO.date|date:'dd-MM-yyyy'}}
+            {{item.createdAt | date:'dd-MM-yyyy'}}
           </mat-panel-description>
 
         </mat-expansion-panel-header>
         <div style="margin-left: 50px;">
-          <div  *ngFor="let rep of item.listAnswer ">
+          <div  *ngFor="let rep of item.answerDTOs ">
             <div style="display: flex;">
               <img src="assets/bv2.jpg" style="width:30px ;height:30px ;
                 border-radius: 50%; margin-right: 20px;" />
-              <mat-panel-title><b>{{rep.account}}: </b>  {{ rep.accountName}}</mat-panel-title>
+              <mat-panel-title><b>{{rep.userDTO.userId}}: </b> {{rep.userDTO.userFName}} {{rep.userDTO.userLName}}</mat-panel-title>
             </div>
 
-            <mat-panel-description style="margin-left: 50px;">{{rep.answercontent}}</mat-panel-description>
+            <mat-panel-description style="margin-left: 50px;">{{rep.answerContent}}</mat-panel-description>
             <mat-panel-description class="justify-content-end">
               {{rep.date|date:'dd-MM-yyyy'}}
             </mat-panel-description>
@@ -61,7 +61,7 @@
             <mat-form-field class="row">
               <input matInput [formControl]="answer" placeholder="Phản hồi" />
             </mat-form-field>
-            <button class="btn btn-primary" style="margin-left: 50px;" (click)="sendAnswer(item.questionDTO.questionId)">gửi</button>
+            <button class="btn btn-primary" style="margin-left: 50px;" (click)="sendAnswer(item.questionId)">gửi</button>
           </div>
         </div>
 

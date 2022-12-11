@@ -33,7 +33,7 @@
           <h6> 3.Chọn Khoa Khám</h6>
           <div class="select-khoa">
             <mat-select formControlName="khoa">
-              <mat-option value="{{dept.deptname}}" *ngFor="let dept of listDept"  (click)="choseDept(dept.deptid)">{{dept.deptname}}</mat-option>
+              <mat-option value="{{dept.departmentName}}" *ngFor="let dept of listDept"  (click)="choseDept(dept.departmentId)">{{dept.departmentName}}</mat-option>
             </mat-select>
             <hr style="margin: 5px;">
 
@@ -45,7 +45,7 @@
           <h6> 4.Chọn Bác Sĩ</h6>
           <div class="select-khoa">
             <mat-select formControlName="bacSi">
-              <mat-option value="{{item.fullname}}" *ngFor="let item of listDoctor" (click)="doctorChange(item.doctorid)" >{{item.fullname}}</mat-option>
+              <mat-option value="{{item.userFName}}" *ngFor="let item of listDoctor" (click)="doctorChange(item.userId)" >{{item.userFName}} {{item.userLName}}</mat-option>
             </mat-select>
             <hr style="margin: 5px;">
           </div>
