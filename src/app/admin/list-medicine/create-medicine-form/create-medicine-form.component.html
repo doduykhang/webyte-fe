@@ -1,23 +1,38 @@
 <div mat-dialog-content>
-    <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+    <form class="form" [formGroup]="myForm" #createForm="ngForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
-            <mat-label>Medicine name</mat-label>
-            <input matInput formControlName="medicineName">
+            <mat-label>Tên thuốc</mat-label>
+            <input required matInput formControlName="medicineName">
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Pack</mat-label>
-            <input  matInput formControlName="medicinePack">
+            <mat-label>Mô tả</mat-label>
+            <textarea required matInput formControlName="medicineDescription"></textarea>
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Type</mat-label>
-            <input  matInput formControlName="medicineType">
+            <mat-label>Kiểu đóng gói</mat-label>
+            <mat-select formControlName="medicinePack" required>
+                <mat-option *ngFor="let pack of packs" [value]="pack.value">
+                    {{pack.value}}
+                </mat-option>
+            </mat-select>
         </mat-form-field>
-	
-        <button type="submit">Create</button>
+
+        <mat-form-field>
+            <mat-label>Loại thuốc</mat-label>
+            <mat-select formControlName="medicineType" required>
+                <mat-option *ngFor="let type of types" [value]="type.value">
+                    {{type.value}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+
     </form>
 </div>
-<div mat-dialog-actions>
-  <button mat-raised-button (click)="onNoClick()">Cancel</button>
+<div mat-dialog-actions style="display:flex; justify-content: flex-end;">
+    <button type="submit" (click)="onSubmit()" mat-raised-button color="primary"
+        [disabled]="!createForm.valid">Tạo</button>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
 </div>

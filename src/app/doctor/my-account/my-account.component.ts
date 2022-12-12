@@ -43,6 +43,7 @@ export class MyAccountComponent implements OnInit {
   ngOnInit() {
     this.addDoctorForm.controls.img.setValue('bv1.jpg');
     this.doctor = this.doctorService.currentDoctorValue;
+    console.log("Doctorrrr")
     console.log(this.doctor.fullname);
     console.log(convert(this.doctor.birthday));
     this.doctor.birthday = convert(this.doctor.birthday);

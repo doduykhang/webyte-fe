@@ -57,7 +57,7 @@ export class ListDoctorComponent implements OnInit {
 	}
 	openDialog(): void {
 		const dialogRef = this.dialog.open(CreateDoctorFormComponent, {
-			width: '250px',
+			width: '500px',
 			data: { listDept: this.listDept }
 		});
 
@@ -69,7 +69,7 @@ export class ListDoctorComponent implements OnInit {
 
 	openDialogUpdate(data: any): void {
 		const dialogRef = this.dialog.open(UpdateDoctorFormComponent, {
-			width: '250px',
+			width: '500px',
 			data: { listDept: this.listDept, doctor: data }
 		});
 

@@ -40,7 +40,8 @@ export class CreateDoctorFormComponent implements OnInit {
 	onSubmit() {
 		try {
 			this.doctorService.createDoctor(this.myForm.value).subscribe(data => {
-				this.notify.notifySuccessNotLink("Created", "Created")
+				this.notify.notifySuccessNotLink("Thêm thành công", "")
+				this.dialogRef.close();
 			}, err => {
 				this.notify.notifiError("Error", err)
 			})

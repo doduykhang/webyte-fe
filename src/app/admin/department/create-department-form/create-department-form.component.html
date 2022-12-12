@@ -1,12 +1,12 @@
 <div mat-dialog-content>
     <form class="form" [formGroup]="myForm" #loginForm="ngForm" (ngSubmit)="onSubmit()">
         <mat-form-field>
-            <mat-label>Department name</mat-label>
+            <mat-label>Tên khoa</mat-label>
             <input required minlength="4" matInput formControlName="departmentName">
         </mat-form-field>
-        <button type="submit" [disabled]="!loginForm.valid">Create</button>
     </form>
 </div>
-<div mat-dialog-actions>
-  <button mat-raised-button (click)="onNoClick()">Cancel</button>
+<div mat-dialog-actions style="display:flex; justify-content: flex-end;">
+    <button mat-raised-button color="primary" (click)="onSubmit()" [disabled]="!loginForm.valid">Thêm</button>
+    <button mat-raised-button (click)="onNoClick()">Hủy</button>
 </div>

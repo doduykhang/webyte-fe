@@ -12,7 +12,7 @@ import { ListOfAppointmentComponent } from './list-of-appointment/list-of-appoin
 import { DepartmentComponent } from './department/department.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule, MatNativeDateModule, MatSelectModule, MatInputModule, MatDialogModule, MatDialogRef } from '@angular/material';
+import { MatFormFieldModule, MatNativeDateModule, MatSelectModule, MatInputModule, MatDialogModule, MatDialogRef, MatButton, MatButtonModule } from '@angular/material';
 import { ListDoctorComponent } from './list-doctor/list-doctor.component';
 import { ListPatientComponent } from './list-patient/list-patient.component';
 import { ListMedicineComponent } from './list-medicine/list-medicine.component';
@@ -69,7 +69,8 @@ import { UpdateNewsFormComponent } from './list-news/update-news-form/update-new
 		ReactiveFormsModule,
 		MatInputModule,
 		NgxPaginationModule,
-		MatDialogModule
+		MatDialogModule,
+		MatButtonModule
 	],
 	providers: [
 		{

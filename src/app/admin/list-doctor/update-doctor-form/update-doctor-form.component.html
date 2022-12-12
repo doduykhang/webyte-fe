@@ -7,32 +7,33 @@
 
         <mat-form-field>
             <mat-label>Last name</mat-label>
-        	<input required matInput formControlName="userLName">
+            <input required matInput formControlName="userLName">
         </mat-form-field>
-    
+
         <mat-form-field>
             <mat-label>Email</mat-label>
             <input required matInput formControlName="email">
         </mat-form-field>
-    
+
         <mat-form-field>
             <mat-label>Phone</mat-label>
             <input required matInput formControlName="phoneNum">
         </mat-form-field>
-    
+
         <mat-form-field>
             <mat-label>Address</mat-label>
             <input required matInput formControlName="address">
         </mat-form-field>
-    
+
         <mat-form-field>
             <mat-label>Birth date</mat-label>
             <input required matInput type="date" formControlName="birthDate">
         </mat-form-field>
 
-        <button type="submit" [disabled]="!updateForm.valid">Update</button>
+
     </form>
 </div>
-<div mat-dialog-actions>
-  <button mat-raised-button (click)="onNoClick()">Cancel</button>
+<div mat-dialog-actions style="display:flex; justify-content: flex-end;">
+    <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="!updateForm.valid">Update</button>
+    <button mat-raised-button (click)="onNoClick()">Cancel</button>
 </div>

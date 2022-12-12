@@ -29,6 +29,7 @@ export class CreateDepartmentFormComponent implements OnInit {
 
 	onSubmit() {
 		try {
+			console.log("creating");
 			this.deptService.createDept(this.myForm.value).subscribe(data => {
 				this.notify.notifySuccessNotLink("Created", "Created")
 			}, err => {
