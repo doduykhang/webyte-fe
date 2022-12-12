@@ -4,6 +4,8 @@ import { MedicineService } from 'src/app/service/adminservice/medicine.service';
 import { NotifyService } from 'src/app/service/notify.service';
 import { MatDialogRef } from '@angular/material';
 import { NewsService } from 'src/app/service/userservice/news.service';
+import { CKEditor4 } from 'ckeditor4-angular';
+import { AuthenticationService } from 'src/app/service/authentication.service';
 
 @Component({
 	selector: 'app-create-news-form',
@@ -12,9 +14,10 @@ import { NewsService } from 'src/app/service/userservice/news.service';
 })
 export class CreateNewsFormComponent implements OnInit {
 	myForm: FormGroup;
-
+	data;
 	constructor(private newService: NewsService,
 		private notify: NotifyService, private fb: FormBuilder,
+		private authenticate: AuthenticationService, 
 		public dialogRef: MatDialogRef<CreateNewsFormComponent>,
 	) {
 	}
@@ -23,18 +26,18 @@ export class CreateNewsFormComponent implements OnInit {
 		this.myForm = this.fb.group({
 			title: "",
 			content: "",
-			img: "",
+			img: "google.com",
 			author: "",
-			date: "",
+			date: new Date(),
 			text: "",
-			userID: 1
+			userID: this.authenticate.currentUserValue.id
 		})
 	}
 
 	onSubmit() {
 		try {
 			this.newService.createNews(this.myForm.value).subscribe(data => {
-				this.notify.notifySuccessNotLink("Created", "Created")
+				this.notify.notifySuccessNotLink("Tạo thành công", "")
 			}, err => {
 				this.notify.notifiError("Error", err)
 			})
@@ -49,6 +52,10 @@ export class CreateNewsFormComponent implements OnInit {
 
 		this.dialogRef.close();
 	}
+
+	public onChange(event: CKEditor4.EventInfo) {
+		this.myForm.value.text = event.editor.getData();
+	  }
 
 	onFileSelected() {
 		const inputNode: any = document.querySelector('#file');
