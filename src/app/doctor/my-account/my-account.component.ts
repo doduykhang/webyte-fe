@@ -61,18 +61,18 @@ export class MyAccountComponent implements OnInit {
   }
 
   changeInfo() {
-    // this.obj = this.addDoctorForm.value;
-    // this.obj.birthday = convert(this.addDoctorForm.value.birthday);
-    // this.obj.userId = this.doctor.userId;
-    // this.obj.accountid = this.doctor.accountid;
-    // console.log(this.obj);
-    // this.doctorService.updateDoctor(this.obj).subscribe(data => {
-    //   if (data != null) {
-    //     this.notify.notifySuccessToggerMessage('Thay đổi thông tin thành công');
-    //   }
-    // }, error => {
-    //   this.notify.notifiError('Lỗi thông tin thay đổi!!!', 'Vui lòng nhập lại');
-    // });
+    this.obj = this.addDoctorForm.value;
+    this.obj.birthday = convert(this.addDoctorForm.value.birthday);
+    this.obj.userId = this.doctor.userId;
+    this.obj.accountid = this.doctor.accountid;
+    console.log(this.obj);
+    this.doctorService.updateDoctor(this.obj).subscribe(data => {
+      if (data != null) {
+        this.notify.notifySuccessToggerMessage('Thay đổi thông tin thành công');
+      }
+    }, error => {
+      this.notify.notifiError('Lỗi thông tin thay đổi!!!', 'Vui lòng nhập lại');
+    });
   }
 
   changePass() {
