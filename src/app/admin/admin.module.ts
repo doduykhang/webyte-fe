@@ -30,6 +30,7 @@ import { CreateSickFormComponent } from './list-sick/create-sick-form/create-sic
 import { UpdateSickFormComponent } from './list-sick/update-sick-form/update-sick-form.component';
 import { CreateNewsFormComponent } from './list-news/create-news-form/create-news-form.component';
 import { UpdateNewsFormComponent } from './list-news/update-news-form/update-news-form.component';
+import { CKEditorModule } from 'ckeditor4-angular';
 
 @NgModule({
 	declarations: [
@@ -70,7 +71,8 @@ import { UpdateNewsFormComponent } from './list-news/update-news-form/update-new
 		MatInputModule,
 		NgxPaginationModule,
 		MatDialogModule,
-		MatButtonModule
+		MatButtonModule,
+		CKEditorModule
 	],
 	providers: [
 		{

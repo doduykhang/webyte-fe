@@ -16,6 +16,10 @@
             <input required matInput formControlName="author">
         </mat-form-field>
 
+        <div class="mb-3">
+            <ckeditor (change)="onChange($event)"></ckeditor>
+        </div>
+
         <!-- <mat-label>Hình ảnh</mat-label> -->
         <div class="mb-3">
             <img id="previewImg" src="#" alt="Image" style="max-width:400px; max-height:250px"/>
