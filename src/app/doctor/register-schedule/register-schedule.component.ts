@@ -7,6 +7,7 @@ import {DoctorService} from '../../service/doctorservice/doctor.service';
 import {Schedule} from '../models/schedule';
 import {Doctor} from '../../models/doctor';
 import {NotifyService} from '../../service/notify.service';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-register-schedule',
@@ -20,6 +21,7 @@ export class RegisterScheduleComponent implements OnInit, DoCheck {
   checkSaturday: boolean;
 
   constructor(private scheduleService: ScheduleService, private doctorService: DoctorService,
+
               private notify: NotifyService) {
     this.doctorInfo = this.doctorService.currentDoctorValue;
     this.checkSaturday = false;
@@ -37,13 +39,15 @@ export class RegisterScheduleComponent implements OnInit, DoCheck {
   ngOnInit() {
     let date = new Date();
     console.log(date.getDate());
-    if (date.getDate() !== 6 && false) {
+    if (date.getDate() !== 6) {
       for (let i = 1; i < 8; i++) {
         const day = moment().add(i, 'days').format('YYYY MM DD');
         date = new Date(day);
-        ELEMENT_DATA[i - 1].dayOfWeek = date.toISOString()
+        
+        ELEMENT_DATA[i - 1].dayOfWeek = formatDate(date, "dd/MM/yyyy", 'en-US');
         ELEMENT_DATA[i - 1].weekdays = this.changeDay(date.getDay());
         ELEMENT_DATA[i - 1].status = 'Chưa đăng ký';
+        console.log(day)
       }
 
     } else {
@@ -129,9 +133,7 @@ export class RegisterScheduleComponent implements OnInit, DoCheck {
       this.selection.clear();
       return;
     }
-
     this.selection.select(...this.dataSource.data);
-
   }
 
   /** The label for the checkbox on the passed row */
@@ -141,6 +143,20 @@ export class RegisterScheduleComponent implements OnInit, DoCheck {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
 
+  }
+
+  changeDateStart(e, row?: PeriodicElement) {
+    if( row.endTime && row.startTime>=row.endTime){
+      e.target.value = null;
+      this.notify.notifiError('Lỗi', 'Giờ kết thúc không thể bé hơn giờ bắt đầu');
+    }
+  }
+
+  changeDateEnd(e, row?: PeriodicElement) {
+    if(row.startTime && row.startTime>=row.endTime){
+      e.target.value = null;
+      this.notify.notifiError('Lỗi', 'Giờ kết thúc không thể bé hơn giờ bắt đầu');
+    }
   }
 
   register() {

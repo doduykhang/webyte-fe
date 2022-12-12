@@ -54,6 +54,7 @@ export class HomeComponent implements OnInit {
   constructor(private headerService: HeaderserviceService, private newsService: NewsService) {
     newsService.getListNews().subscribe((data) => {
       this.news = data;
+      console.log(data);
     })
   }
 

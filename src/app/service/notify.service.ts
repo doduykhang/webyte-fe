@@ -180,7 +180,7 @@ export class NotifyService {
 	xoaTin(id: number) {
 		Swal.fire({
 			title: 'Bạn đã chắc chắn?',
-			text: 'Bạn sẽ xóa khoa này khỏi danh sách khoa!',
+			text: 'Bạn sẽ xóa tin này khỏi danh sách tin tức!',
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
@@ -193,7 +193,7 @@ export class NotifyService {
 						this.notifyCancel('Xóa thành công!');
 						this.reloadPage();
 					} else {
-						this.notifyCancel('Khoa đang tồn tại bác sĩ, Không thể xóa!');
+						this.notifyCancel('Xóa thất bại, thử lại sau!');
 					}
 				}, error => {
 					this.notifyCancel('Xóa không thành công!');

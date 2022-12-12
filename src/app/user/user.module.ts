@@ -15,6 +15,7 @@ import { RegistrationScheduleComponent } from './appointment-schedule/registrati
 import { AskAnswerComponent } from './ask-answer/ask-answer.component';
 import { ContactComponent } from './contact/contact.component';
 import { HomeComponent } from './home/home.component';
+import {NewsDetailComponent} from './news-detail/news-detail.component';
 
 import { SlideShowComponent } from './layout/slide-show/slide-show.component';
 import { ListDoctorComponent } from './list-doctor/list-doctor.component';
@@ -43,7 +44,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     SlideShowComponent,
     VideoCallComponent,
     AppointDetailComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    NewsDetailComponent
 ],
     imports: [
         CommonModule,

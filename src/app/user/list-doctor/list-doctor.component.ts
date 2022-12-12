@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import * as internal from 'assert';
-import {DeptService} from 'src/app/service/userservice/dept.service';
-import {DoctorService} from 'src/app/service/userservice/doctor.service';
-import {HeaderserviceService} from 'src/app/service/userservice/headerservice.service';
+import { DeptService } from 'src/app/service/userservice/dept.service';
+import { DoctorService } from 'src/app/service/userservice/doctor.service';
+import { HeaderserviceService } from 'src/app/service/userservice/headerservice.service';
 
 @Component({
   selector: 'app-list-doctor',
@@ -19,11 +19,11 @@ export class ListDoctorComponent implements OnInit {
 
   listKhoa: dept;
   slides = [
-    {image: './assets/imglogin.png', text: 'Khoa: khoa Nội', title: 'Nguyen văn A'},
-    {image: './assets/imglogin.png', text: 'khoa: khoa Nội', title: 'Nguyen văn B'},
-    {image: './assets/imglogin.png', text: 'khoa: khoaA', title: 'Nguyen văn C'},
-    {image: './assets/imglogin.png', text: 'khoa: khoaA', title: 'Nguyen văn D'},
-    {image: './assets/imglogin.png', text: 'khoa: khoaA', title: 'Nguyen văn E'}
+    { image: './assets/imglogin.png', text: 'Khoa: khoa Nội', title: 'Nguyen văn A' },
+    { image: './assets/imglogin.png', text: 'khoa: khoa Nội', title: 'Nguyen văn B' },
+    { image: './assets/imglogin.png', text: 'khoa: khoaA', title: 'Nguyen văn C' },
+    { image: './assets/imglogin.png', text: 'khoa: khoaA', title: 'Nguyen văn D' },
+    { image: './assets/imglogin.png', text: 'khoa: khoaA', title: 'Nguyen văn E' }
   ];
   p: number;
 
@@ -45,24 +45,21 @@ export class ListDoctorComponent implements OnInit {
     this.headerService.setActive('list-doctor');
   }
 
-  listDept(deptName) {
+  listDept(deptId) {
     const list = [];
     let item: any;
-    console.log(deptName);
-    if (deptName !== undefined) {
+    console.log(deptId);
+    if (deptId !== undefined) {
       for (item of this.listDoctorTam) {
-        console.log(item);
-        if (item.deptname === deptName) {
+        if (item.departmentId.includes(deptId)) {
           list.push(item);
         }
-
       }
       this.listDoctor = list;
     } else {
       this.listDoctor = this.listDoctorTam;
     }
-
-    console.log(list + deptName);
+    console.log(list + deptId);
   }
 
 }
