@@ -111,8 +111,8 @@ export class UserserviceService {
     });
   }
 
-  changePassword(id: number, password: string): Observable<any> {
-    return this.http.put(`${environment.baseURL}` + 'change-password/' + id, password, {
+  changePassword(data): Observable<any> {
+    return this.http.put(`${environment.baseURL}` + 'change-password/',data, {
       headers: new HttpHeaders({
         Authorization: 'Bearer ' + this.authentication.currentUserValue.token,
       })
@@ -126,4 +126,12 @@ export class UserserviceService {
     localStorage.removeItem('currentPatient');
     this.currentPatientSubject.next(null);
   }
+
+getUserInfo(id:number): Observable<any>{
+    return this.http.get(`${environment.baseURL}get-account-by-id/${id}`);
+}
+
+updateUser(data): Observable<any>{
+    return this.http.put(`${environment.baseURL}update-account`, data, this.httpOptions);
+}
 }

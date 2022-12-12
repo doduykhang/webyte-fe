@@ -10,7 +10,7 @@ export const environment = {
 	baseURL: 'http://localhost:8080/webyte/account/',
 	forgotPassURL: 'http://localhost:8080/webyte/account/forgotPassword/',
 	changePassURL: 'http://localhost:8080/webyte/account/change-password',
-	patientURL: 'http://localhost:8080/patients/',
+	patientURL: 'http://localhost:8080/webyte/patient/',
 	doctorURL: 'http://localhost:8080/webyte/doctor/',
 	adminURL: 'http://localhost:8080/admin/',
 	deptURL: 'http://localhost:8080/webyte/department/',

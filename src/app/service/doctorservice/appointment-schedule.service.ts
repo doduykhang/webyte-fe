@@ -32,7 +32,7 @@ export class AppointmentScheduleService {
     return this.httpclient.get<any>(url, this.httpOptions); // Nhớ import catchError
   }
   public getListAppointByDoctor(id: number): Observable<any> {
-    const url = `${environment.appointmentURL}allByDoctor/${id}`;
+    const url = `${environment.appointmentURL}doctor/${id}`;
     return this.httpclient.get<any>(url, this.httpOptions); // Nhớ import catchError
   }
 }

@@ -18,7 +18,7 @@ export class PatientServiceService {
   };
   constructor(private httpclient: HttpClient) { }
   public getListDoctor(): Observable<any> {
-    const url = `${environment.patientURL}get-all-patient`;
+    const url = `${environment.patientURL}find-all`;
     return this.httpclient.get<any>(url, this.httpOptions); // Nhớ import catchError
   }
   public deletePatientByID(id: number): Observable<any> {

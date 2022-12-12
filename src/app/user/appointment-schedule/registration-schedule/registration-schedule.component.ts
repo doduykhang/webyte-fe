@@ -231,8 +231,6 @@ export class RegistrationScheduleComponent implements OnInit {
     await this.appointService.checkDate(doctorid, date).subscribe(data => {
 	    this.time = this.timeOrigin.filter((time) => {
 		return !data.find(d =>  {
-			console.log()
-			console.log(d.appointmentTime)
 			return time.time === d.appointmentTime
 		})
 	    })

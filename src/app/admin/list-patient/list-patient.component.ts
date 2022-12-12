@@ -9,7 +9,7 @@ import {NotifyService} from '../../service/notify.service';
 })
 export class ListPatientComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'patientName', 'phone', 'brithday', 'email', 'hmm'];
+  displayedColumns: string[] = ['position', 'userFName', 'userLName', 'phoneNum', 'birthDate', 'email'];
   dataSource;
   listPatientOrigin;
   listAppoint;

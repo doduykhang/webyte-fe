@@ -46,7 +46,7 @@ export class DoctorService {
   }
 
   updateDoctor(obj: Doctor) {
-    return this.httpclient.put(`${environment.doctorURL}update`, obj, this.httpOptions).pipe(map(data => {
+    return this.httpclient.put(`${environment.baseURL}update-account`, obj, this.httpOptions).pipe(map(data => {
       if (data != null) {
         localStorage.setItem('currentDoctor', JSON.stringify(data));
         return data;

@@ -23,12 +23,11 @@ export class MyAccountComponent implements OnInit {
   }
 
   addDoctorForm = new FormGroup({
-    fullname: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),
+    userFName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),
+    userLName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),
     address: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
-    img: new FormControl(),
-    birthday: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required, ValidatorsCharacters.PhoneFax]),
-    email: new FormControl('', [Validators.required, Validators.email, ValidatorsCharacters.EmailPattern])
+    birthDate: new FormControl('', [Validators.required]),
+    phoneNum: new FormControl('', [Validators.required, ValidatorsCharacters.PhoneFax]),
   });
   id = 0;
   img;
@@ -39,14 +38,14 @@ export class MyAccountComponent implements OnInit {
   obj = new Doctor();
   matcher = new MyErrorStateMatcher();
   date = new Date();
+  email: string
 
   ngOnInit() {
-    this.addDoctorForm.controls.img.setValue('bv1.jpg');
-    this.doctor = this.doctorService.currentDoctorValue;
-    console.log("Doctorrrr")
-    console.log(this.doctor.fullname);
-    console.log(convert(this.doctor.birthday));
-    this.doctor.birthday = convert(this.doctor.birthday);
+	  this.userService.getUserInfo(this.authentication.currentUserValue.id).subscribe((data) => {
+		console.log(data)
+		this.doctor = data
+		this.email = data.email
+	  })
   }
 
   changeImg() {

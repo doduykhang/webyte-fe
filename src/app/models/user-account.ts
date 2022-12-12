@@ -6,4 +6,5 @@ export class UserAccount {
   public token: string;
   public message: string;
   public idrole: number;
+	public email: string;
 }
