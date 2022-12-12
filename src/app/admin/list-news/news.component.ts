@@ -40,7 +40,7 @@ export class NewsComponent implements OnInit {
 
 	create() {
 		const dialogRef = this.dialog.open(CreateNewsFormComponent, {
-			width: '500px',
+			width: '750px',
 		});
 
 		dialogRef.afterClosed().subscribe(result => {
@@ -52,7 +52,7 @@ export class NewsComponent implements OnInit {
 	update(item) {
 
 		const dialogRef = this.dialog.open(UpdateNewsFormComponent, {
-			width: '500px',
+			width: '750px',
 			data: item
 		});
 
