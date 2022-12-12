@@ -88,6 +88,7 @@ export class RegistrationScheduleComponent implements OnInit {
   listDept;
   listDoctor;
   colorTime;
+  doctorSchedule = null;
   appontmentSchedule: appointmentSchedule = new appointmentSchedule();
   disableSelect = new FormControl();
   formDangKy = new FormGroup({
@@ -111,9 +112,7 @@ export class RegistrationScheduleComponent implements OnInit {
   }
 
   ngOnInit() {	
-    this.authentication.currentUser.source.toPromise().then((value:any) => {
-	this.appontmentSchedule.userId = value.id
-    });
+	this.appontmentSchedule.userId  = this.authentication.currentUserValue.id
     this.headerService.setActive('appointment-schedule');
   }
 
@@ -155,7 +154,6 @@ export class RegistrationScheduleComponent implements OnInit {
 
   }
   choseDate(event) {
-    console.log('event',event);
     if (this.formDangKy.controls.phuongThuc.value === "Offline") {
 
       this.appointService.getCountTime(event).subscribe(data => {
@@ -210,8 +208,6 @@ export class RegistrationScheduleComponent implements OnInit {
     }
 
 
-    //  window.location.href = 'https://www.google.com';
-    // this.route.navigate(['user/payment']);
   }
 
   choseDept(deptid) {
@@ -219,30 +215,28 @@ export class RegistrationScheduleComponent implements OnInit {
       const date = this.formDangKy.controls.ngayKham.value;
       console.log(date + '' + deptid);
       this.doctorService.getListDoctorByDept(deptid).subscribe(data => {
-        console.log(data);
         this.listDoctor = data;
       });
     }
 
   }
 
-  doctorChange(doctorid) {
+  async doctorChange(doctorid) {
     this.appontmentSchedule.doctorId = doctorid;
     let date: string = this.formDangKy.controls.ngayKham.value;
-    this.doctorService.getPriceDoctor(doctorid, date).subscribe(data => {
-      console.log(data);
-      this.formDangKy.controls.gia.setValue(data.price.price);
-      this.quydoi = +(data.price.price / 23000).toFixed(2);
-      for (let item of data.listAppoint) {
-        console.log(this.time.find(a => a.time == item.time), item.time);
-        (this.time.find(a => a.time === item.time)).class = 'btn-color-active';
-      }
-
+    await this.doctorService.getScheduleByDateAndDoctorId(doctorid, date).subscribe(data => {
+      this.doctorSchedule = data
     });
 
-
-
-
+    await this.appointService.checkDate(doctorid, date).subscribe(data => {
+	    this.time = this.timeOrigin.filter((time) => {
+		return !data.find(d =>  {
+			console.log()
+			console.log(d.appointmentTime)
+			return time.time === d.appointmentTime
+		})
+	    })
+    });
   }
 
   clickTime(name) {

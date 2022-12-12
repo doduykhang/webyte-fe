@@ -45,4 +45,9 @@ export class AppointmentScheduleService {
     const url = `${environment.appointmentURL}appointById/`+id;
     return this.httpclient.get<any>(url,this.httpOptions);
   }
+
+  public checkDate(doctorId, date): Observable<any>{
+    const url = `${environment.appointmentURL}check-date/${doctorId}?date=${date}`;
+    return this.httpclient.get<any>(url,this.httpOptions);
+  }
 }

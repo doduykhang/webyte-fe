@@ -75,6 +75,11 @@ export class DoctorService {
     return this.httpclient.get<any>(url, this.httpOptions);
   }
 
+  public getScheduleByDateAndDoctorId(id: number, date: string) {
+    const url = `${environment.scheduleURL}check-date/${id}?date=${date}`;
+    return this.httpclient.get<any>(url, this.httpOptions);
+  }
+
   public update(img, data) {
     const formData = new FormData();
     formData.append('img', img);
