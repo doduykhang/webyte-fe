@@ -3,6 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {LoginComponent} from '../layout/login/login.component';
 import {RegisterComponent} from '../layout/register/register.component';
 import {AboutComponent} from './about/about.component';
+import {NewsDetailComponent} from './news-detail/news-detail.component';
 import {AppointmentScheduleComponent} from './appointment-schedule/appointment-schedule.component';
 import {PaymentComponent} from './appointment-schedule/registration-schedule/payment/payment.component';
 import {RegistrationScheduleComponent} from './appointment-schedule/registration-schedule/registration-schedule.component';
@@ -22,6 +23,7 @@ export const UserRoutes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: '', component: HomeComponent},
   {path: 'about', component: AboutComponent},
+  {path: 'news-detail/:newsId', component: NewsDetailComponent},
   {path: 'list-doctor', component: ListDoctorComponent},
   {path: 'appointment-schedule', component: AppointmentScheduleComponent, canActivate: [AuthGuard]},
   {path: 'registration-schedule', component: RegistrationScheduleComponent},

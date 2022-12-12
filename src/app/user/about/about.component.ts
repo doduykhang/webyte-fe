@@ -11,10 +11,10 @@ import { HeaderserviceService } from 'src/app/service/userservice/headerservice.
 })
 export class AboutComponent implements OnInit {
 
-  selectfile:File;
+  selectfile: File;
   fileName;
-  constructor(private headerService: HeaderserviceService,private route: ActivatedRoute,private doctor: DoctorService) { }
-name;
+  constructor(private headerService: HeaderserviceService, private route: ActivatedRoute, private doctor: DoctorService) { }
+  name;
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.name = params['PayerID'];
@@ -23,6 +23,7 @@ name;
 
     this.headerService.setActive('about');
   }
+  
   changeImg(event) {
     this.selectfile = (event.target as HTMLInputElement).files[0];
     if (this.selectfile) {
@@ -30,19 +31,20 @@ name;
       // render.readAsDataURL(this.selectfile)
       // render.onload = (event: any) => {
       // }
-      this.fileName=this.selectfile.name;
+      this.fileName = this.selectfile.name;
 
     }
+  }
 
+  data = {
+    'fullname': 'trang',
+    'phone': '0820173'
   }
-  data={
-    'fullname':'trang',
-    'phone':'0820173'
-  }
-  uploadImg(){
- this.doctor.update(this.selectfile,this.data).subscribe(data=>{
-  console.log(data);
- })
+
+  uploadImg() {
+    this.doctor.update(this.selectfile, this.data).subscribe(data => {
+      console.log(data);
+    })
   }
 
 }
