@@ -23,12 +23,11 @@ export class MyAccountComponent implements OnInit {
   }
 
   addAdminForm = new FormGroup({
-    fullname: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),
+    userFName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),
+    userLName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),
     address: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
-    img: new FormControl(),
-    birthday: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required, ValidatorsCharacters.PhoneFax]),
-    email: new FormControl('', [Validators.required, Validators.email, ValidatorsCharacters.EmailPattern])
+    birthDate: new FormControl('', [Validators.required]),
+    phoneNum: new FormControl('', [Validators.required, ValidatorsCharacters.PhoneFax]),
   });
   id = 0;
   img;
@@ -39,14 +38,14 @@ export class MyAccountComponent implements OnInit {
   obj = new Doctor();
   matcher = new MyErrorStateMatcher();
   date = new Date();
+  email: string
 
   ngOnInit() {
-    this.admin.fullname = 'Admin';
-    this.admin.email = 'admin123@gmail.com';
-    this.admin.img = 'bv1.jpg';
-    this.admin.birthday = '01-12-2000';
-    this.admin.phone = '0327248445';
-    this.admin.address = 'Quận 10';
+	  this.userService.getUserInfo(this.authentication.currentUserValue.id).subscribe((data) => {
+		console.log(data)
+		this.admin = data
+		this.email = data.email
+	  })
   }
 
   changeImg() {
@@ -60,7 +59,13 @@ export class MyAccountComponent implements OnInit {
     }
   }
 
-  changeInfo() {
+  changeInfo() {	
+	  console.log("change info")
+	this.userService.updateUser({
+		...this.addAdminForm.value,
+		userId: this.authentication.currentUserValue.id,
+		email: this.email
+	}).subscribe(()=>{})
   }
 
   changePass() {

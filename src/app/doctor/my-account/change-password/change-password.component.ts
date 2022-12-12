@@ -74,30 +74,11 @@ export class ChangePasswordComponent implements OnInit {
     this.newPass = this.form.value.newPassword;
     console.log(this.pass);
     console.log(this.newPass);
-    this.userService.checkPassword(this.id, this.pass).subscribe(
-      (data) => {
-        console.log(data);
-        console.log(this.id, this.pass, this.newPass);
-        if (data === true) {
-          this.userService.changePassword(this.id, this.newPass)
-            .subscribe((data1) => {
-                this.isSuccessful = true;
-                this.isChangeFail = false;
-              },
-              (err) => {
-                // this.errorMessage = err.error.message;
-                this.isChangeFail = true;
-              });
-        } else {
-          this.isSuccessful = false;
-          this.isChangeFail = true;
-        }
-      },
-      (err1) => {
-        // this.errorMessage = err1.error.message;
-        this.isChangeFail = true;
-      }
-    );
+    this.userService.changePassword({
+	id: this.id,
+	oldPassword: this.pass,
+	newPassword: this.newPass
+    }).subscribe()
   }
 
   onReset(): void {

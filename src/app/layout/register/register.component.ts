@@ -41,10 +41,9 @@ export class RegisterComponent implements OnInit {
     this.headerService.setActive('register');
     this.formRegister = this.formBuilder.group({
         username: ['', [Validators.minLength(5), Validators.maxLength(20), Validators.required, ValidatorsCharacters.Username]],
-        password: ['', [Validators.minLength(6), Validators.maxLength(40), Validators.required, ValidatorsCharacters.Password]],
+        pwd: ['', [Validators.minLength(6), Validators.maxLength(40), Validators.required, ValidatorsCharacters.Password]],
         confirmPassword: ['', [Validators.minLength(6), Validators.maxLength(40), Validators.required, ValidatorsCharacters.Password]],
         email: ['', [Validators.minLength(11), Validators.maxLength(40), Validators.required, ValidatorsCharacters.EmailAddress]],
-        phone: ['', [Validators.minLength(10), Validators.maxLength(40), Validators.required, ValidatorsCharacters.PhoneFax]]
       },
       {
         validator: [ConfirmPasswordValidator.match('password', 'confirmPassword')],
@@ -63,17 +62,16 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    this.loading = true;
-    this.user.username = this.formRegister.value.username;
-    this.user.password = this.formRegister.value.password;
-    this.user.idrole = 1;
-    this.object.push(this.user);
-    this.patient.email = this.formRegister.value.email;
-    this.patient.phone = this.formRegister.value.phone;
-    this.object.push(this.patient);
-    console.log(this.object);
-    this.loading = true;
-    this.userService.register(this.object)
+    this.userService.register({
+	    ...this.formRegister.value,
+	    userLName: "",
+	    userFName: "",
+	    birthDate: new Date(),
+	    phoneNum: "",
+	    address: "",
+	    image: "",
+	    doctorName: ""
+    })
       .subscribe(
         data => {
           console.log('đăng ký thành công',data);

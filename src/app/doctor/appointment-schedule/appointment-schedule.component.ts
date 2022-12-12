@@ -36,7 +36,9 @@ export class AppointmentScheduleComponent implements OnInit {
 
   getListAppointmentSchedule() {
     this.appointment.getListAppointByDoctor(this.doctorInfo.userId).subscribe(data => {
+
       if (data) {
+	      console.log(data)
         this.existAppSch = true;
         this.listAppSch = data;
         this.listOriginal = data;

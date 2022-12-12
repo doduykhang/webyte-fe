@@ -22,12 +22,11 @@ export class MyAccountComponent implements OnInit {
   }
 
   addEmployeeForm = new FormGroup({
-    fullname: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),
+    userFName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),
+    userLName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),
     address: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
-    img: new FormControl(),
-    birthday: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required, ValidatorsCharacters.PhoneFax]),
-    email: new FormControl('', [Validators.required, Validators.email, ValidatorsCharacters.EmailPattern])
+    birthDate: new FormControl('', [Validators.required]),
+    phoneNum: new FormControl('', [Validators.required, ValidatorsCharacters.PhoneFax]),
   });
   id = 0;
   img;
@@ -35,17 +34,16 @@ export class MyAccountComponent implements OnInit {
   display = false;
   message;
   patient = new Patient();
+  email: string
   obj = new Patient();
   matcher = new MyErrorStateMatcher();
   date = new Date();
   ngOnInit() {
-    this.headerService.setActive('my-account');
-    this.addEmployeeForm.controls.img.setValue('bv1.jpg');
-    this.patient = this.userService.currentPatientValue;
-    console.log(this.patient)
-    console.log(this.patient.fullname);
-    console.log(convert(this.patient.birthday));
-    this.patient.birthday = convert(this.patient.birthday);
+	  this.userService.getUserInfo(this.authentication.currentUserValue.id).subscribe((data) => {
+		console.log(data)
+		this.patient = data
+		this.email = data.email
+	  })
   }
   changeImg() {
 
@@ -61,9 +59,8 @@ export class MyAccountComponent implements OnInit {
   changeInfo() {
     this.obj = this.addEmployeeForm.value;
     this.obj.birthday = convert(this.addEmployeeForm.value.birthday);
-    this.obj.id = this.patient.id;
-    this.obj.accountid = this.patient.accountid;
-    this.userService.updatePatient(this.obj).subscribe(data => {
+    this.obj.userId = this.authentication.currentUserValue.id;
+    this.userService.updateUser(this.obj).subscribe(data => {
       if (data != null) {
         this.notify.notifySuccessToggerMessage('Thay đổi thông tin thành công');
       }
