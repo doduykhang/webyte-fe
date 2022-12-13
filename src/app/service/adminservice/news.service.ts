@@ -17,8 +17,8 @@ export class NewsService {
 		}),
 	};
 	constructor(private httpclient: HttpClient) { }
-	public getListNews(): Observable<any> {
-		const url = `${environment.newURL}find-all`;
+	public getListNews(name = "",page = 0, size = 10): Observable<any> {
+		const url = `${environment.newURL}find-all?page=${page}&size=${size}&name=${name}`;
 		return this.httpclient.get<any>(url, this.httpOptions); // Nhớ import catchError
 	}
 }
