@@ -50,4 +50,16 @@ export class DoctorServiceService {
 		console.log(url);
 		return this.httpclient.put<any>(url, form, this.httpOptions)
 	}
+
+	public addDoctorToDept(form: any): Observable<any> {
+		const url = `${environment.deptURL}add-doctor`;
+		console.log(url);
+		return this.httpclient.put<any>(url, form, this.httpOptions)
+	}
+
+	public removeDoctorToDept(form: any): Observable<any> {
+		const url = `${environment.deptURL}remove-doctor`;
+		console.log(url);
+		return this.httpclient.put<any>(url, form, this.httpOptions)
+	}
 }

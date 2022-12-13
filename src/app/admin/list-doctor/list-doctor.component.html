@@ -58,7 +58,14 @@
                 <td>{{item.phoneNum}}</td>
                 <td>{{item.email}}</td>
                 <td>{{item.birthDate|date:'dd-MM-yyyy'}}</td>
-
+		<td>
+			<mat-form-field appearance="fill">
+  				<mat-label>Department</mat-label>
+  				<mat-select multiple [value]="item.departmentDTOs">
+    					<mat-option *ngFor="let department of listDept" [value]="department.departmentId" (click)="selectDept(department.departmentId,item.userId,item.departmentDTOs)">{{department.departmentName}}</mat-option>
+  				</mat-select>
+			</mat-form-field>
+		</td>
                 <td>
                   <a style="color: rgb(232, 18, 18);margin-right: 10px;
                     font-size: larger;"><i class="fa fa-trash" aria-hidden="true"
