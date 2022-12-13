@@ -34,7 +34,6 @@ export class RegistrationScheduleComponent implements OnInit {
     { time: '12:30', class: '' },
     { time: '13:00', class: '' },
     { time: '13:30', class: '' },
-
     { time: '14:00', class: '' },
     { time: '14:30', class: '' },
     { time: '15:00', class: '' },
@@ -63,7 +62,6 @@ export class RegistrationScheduleComponent implements OnInit {
     { time: '12:30', class: '' },
     { time: '13:00', class: '' },
     { time: '13:30', class: '' },
-
     { time: '14:00', class: '' },
     { time: '14:30', class: '' },
     { time: '15:00', class: '' },
@@ -104,15 +102,15 @@ export class RegistrationScheduleComponent implements OnInit {
   constructor(private headerService: HeaderserviceService, private route: Router, private paymentService: PaymentService,
     private deptService: DeptService, private doctorService: DoctorService,
     private patient: UserserviceService, private appointService: AppointmentScheduleService,
-    private authentication: AuthenticationService,private notify: NotifyService) {
+    private authentication: AuthenticationService, private notify: NotifyService) {
     deptService.getListDept().subscribe(data => {
       this.listDept = data;
     });
 
   }
 
-  ngOnInit() {	
-	this.appontmentSchedule.userId  = this.authentication.currentUserValue.id
+  ngOnInit() {
+    this.appontmentSchedule.userId = this.authentication.currentUserValue.id
     this.headerService.setActive('appointment-schedule');
   }
 
@@ -175,8 +173,8 @@ export class RegistrationScheduleComponent implements OnInit {
     this.appontmentSchedule.appointmentTime = this.formDangKy.controls.gioKham.value;
     this.appontmentSchedule.appointmentType = this.formDangKy.controls.phuongThuc.value;
     this.appontmentSchedule.price = this.quydoi;
-    console.log("schedule",this.appontmentSchedule)
-    if( this.appontmentSchedule.appointmentType === "Online"){
+    console.log("schedule", this.appontmentSchedule)
+    if (this.appontmentSchedule.appointmentType === "Online") {
       Swal.fire({
         title: 'Xác nhận thanh toán',
         text: 'Giá tiền là: ' + this.formDangKy.controls.gia.value + 'VNĐ  ( Được quy đổi sang là:' + this.quydoi + ' $)',
@@ -197,9 +195,9 @@ export class RegistrationScheduleComponent implements OnInit {
         }
       });
 
-    }else{
+    } else {
       console.log(this.appontmentSchedule);
-      this.notify.notifySuccess("Thành công","/user/appointment-schedule","Đăng ký thành công")
+      this.notify.notifySuccess("Thành công", "/user/appointment-schedule", "Đăng ký thành công")
       this.appointService.postAppoint(this.appontmentSchedule).subscribe(data => {
         console.log(data);
         this.appontmentSchedule.idappointmentSchedule = data.idappointmentSchedule;
@@ -226,16 +224,41 @@ export class RegistrationScheduleComponent implements OnInit {
     let date: string = this.formDangKy.controls.ngayKham.value;
     await this.doctorService.getScheduleByDateAndDoctorId(doctorid, date).subscribe(data => {
       this.doctorSchedule = data
+      const timeTemp = [];
+      if (this.doctorSchedule) {
+        var targetStart = new Date(date + 'T' + this.doctorSchedule.startTime);
+        var targetEnd = new Date(date + 'T' + this.doctorSchedule.endTime);
+        
+        this.timeOrigin.forEach(x => {
+          var timeCheck = new Date(date + 'T' + x.time);
+          if (timeCheck <= targetEnd && timeCheck >= targetStart) {
+            timeTemp.push(x);
+          }
+        });
+      }
+      this.time = timeTemp;
     });
 
     await this.appointService.checkDate(doctorid, date).subscribe(data => {
-	    this.time = this.timeOrigin.filter((time) => {
-		return !data.find(d =>  {
-			return time.time === d.appointmentTime
-		})
-	    })
+      this.time = this.timeOrigin.filter((time) => {
+        return !data.find(d => {
+          return time.time === d.appointmentTime
+        })
+      })
     });
   }
+
+  // dateCheck(from:string,to:string,check:string):Boolean {
+  //   var fDate,lDate,cDate;
+  //   fDate = Date.parse(from);
+  //   lDate = Date.parse(to);
+  //   cDate = Date.parse(check);
+  //   if((cDate <= lDate && cDate >= fDate)) {
+  //       return true;
+  //   }
+  //   return false;
+  // }
+
 
   clickTime(name) {
     console.log(this.errorDate);
