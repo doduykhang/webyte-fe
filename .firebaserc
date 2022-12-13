@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "webyte-af030": {
+      "hosting": {
+        "DoAn": [
+          "webyte-af030"
+        ]
+      }
+    }
+  }
+}
