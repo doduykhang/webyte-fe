@@ -33,18 +33,13 @@ export class CreateSickFormComponent implements OnInit {
 	}
 
 	onSubmit() {
-		try {
-			this.myForm.value.symptomIds = []
-			this.sickService.create(this.myForm.value).subscribe(data => {
-				this.notify.notifySuccessNotLink("Created", "Created")
-			}, err => {
-				this.notify.notifiError("Error", err)
-			})
-
-		} catch {
-
-		}
-
+		this.myForm.value.symptomIds = []
+		this.sickService.create(this.myForm.value).subscribe(() => {
+			this.notify.notifySuccessNotLink("Thêm thành công", "")
+			this.dialogRef.close();
+			return;
+		})
+		this.notify.notifiError('Lỗi', 'Có lỗi trong quá trình thực thi, thử lại sau')
 	}
 
 	onNoClick(): void {

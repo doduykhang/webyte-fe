@@ -64,7 +64,7 @@
           </mat-form-field>
           <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Ngày sinh</mat-label>
-            <input type="text" matInput formControlName="birthDate" id="birthday"
+            <input type="date" matInput formControlName="birthDate" id="birthday"
                    [errorStateMatcher]="matcher" [readonly]="display" [(ngModel)]="admin.birthDate">
             <mat-error *ngIf="addAdminForm.controls.birthDate.hasError('required')">
               *Nhập <strong>ngày sinh!</strong>

@@ -26,8 +26,8 @@ export class ListDoctorComponent implements OnInit {
 	p: number;
 
 	searchForm = this.formBuilder.group({
-    		query: '',
-  	});
+		query: '',
+	});
 
 	loadDoctor(name: string = "", page: number = 0, size: number = 1000) {
 		this.doctorService.getListDoctor(name, page, size).subscribe(data => {
@@ -43,6 +43,18 @@ export class ListDoctorComponent implements OnInit {
 		this.deptService.getListDept().subscribe(data => {
 			this.listDept = data;
 		});
+
+		this.doctorService.getListDoctor(name, page, size).subscribe(data => {
+			const data1 = [];
+			data.forEach(x=>{
+				var obj = {...x, deptName: (x.departmentDTOs.map(y=> {return y.departmentName})).toString()}
+				data1.push(obj);
+			});
+			this.listDoctorOrigin = data1;
+			this.listDoctor = this.listDoctorOrigin;
+		});
+
+		
 	}
 
 	ngOnInit() {
@@ -52,7 +64,14 @@ export class ListDoctorComponent implements OnInit {
 	filterDept(deptId) {
 		console.log(deptId);
 		if (deptId !== 0 && deptId != null) {
-			this.listDoctor = this.listDoctorOrigin.filter(a => a.deptid === deptId);
+			const doctors = [];
+			this.listDoctorOrigin.forEach(e => {
+				var check = e.departmentDTOs.find(a => a.departmentId === deptId);
+				if (check) {
+					doctors.push(e);
+				}
+			});
+			this.listDoctor = doctors;
 		} else {
 			this.listDoctor = this.listDoctorOrigin;
 		}
