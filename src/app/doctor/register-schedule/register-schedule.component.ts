@@ -1,13 +1,13 @@
-import {SelectionModel} from '@angular/cdk/collections';
-import {Component, DoCheck, OnInit} from '@angular/core';
-import {MatTableDataSource} from '@angular/material';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Component, DoCheck, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material';
 import * as moment from 'moment';
-import {ScheduleService} from '../../service/doctorservice/schedule.service';
-import {DoctorService} from '../../service/doctorservice/doctor.service';
-import {Schedule} from '../models/schedule';
-import {Doctor} from '../../models/doctor';
-import {NotifyService} from '../../service/notify.service';
-import {formatDate} from '@angular/common';
+import { ScheduleService } from '../../service/doctorservice/schedule.service';
+import { DoctorService } from '../../service/doctorservice/doctor.service';
+import { Schedule } from '../models/schedule';
+import { Doctor } from '../../models/doctor';
+import { NotifyService } from '../../service/notify.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-register-schedule',
@@ -16,13 +16,13 @@ import {formatDate} from '@angular/common';
 })
 export class RegisterScheduleComponent implements OnInit, DoCheck {
   doctorInfo: Doctor;
-  public listSchedule: Schedule [];
-  public listScheduleExist: Schedule [];
+  public listSchedule: Schedule[];
+  public listScheduleExist: Schedule[];
   checkSaturday: boolean;
 
   constructor(private scheduleService: ScheduleService, private doctorService: DoctorService,
 
-              private notify: NotifyService) {
+    private notify: NotifyService) {
     this.doctorInfo = this.doctorService.currentDoctorValue;
     this.checkSaturday = false;
   }
@@ -39,50 +39,77 @@ export class RegisterScheduleComponent implements OnInit, DoCheck {
   ngOnInit() {
     let date = new Date();
     console.log(date.getDate());
-    if (date.getDate() !== 6) {
-      for (let i = 1; i < 8; i++) {
-        const day = moment().add(i, 'days').format('YYYY MM DD');
-        date = new Date(day);
-        
-        ELEMENT_DATA[i - 1].dayOfWeek = formatDate(date, "dd/MM/yyyy", 'en-US');
-        ELEMENT_DATA[i - 1].weekdays = this.changeDay(date.getDay());
-        ELEMENT_DATA[i - 1].status = 'Chưa đăng ký';
-        console.log(day)
-      }
 
-    } else {
-      this.getListScheduleOfDoctor();
+
+    // if (date.getDate() !== 6) {
+    for (let i = 1; i < 8; i++) {
+      const day = moment().add(i, 'days').format('YYYY MM DD');
+      date = new Date(day);
+
+      ELEMENT_DATA[i - 1].dayOfWeekStr = formatDate(date, "dd/MM/yyyy", 'en-US');
+      ELEMENT_DATA[i - 1].dayOfWeek = date.toISOString();
+      ELEMENT_DATA[i - 1].weekdays = this.changeDay(date.getDay());
+      ELEMENT_DATA[i - 1].status = 'Chưa đăng ký';
+      console.log(day)
     }
+    this.getListScheduleOfDoctor();
+
+    // }
+    // else {
+    //   this.getListScheduleOfDoctor();
+    // }
   }
 
   getListScheduleOfDoctor() {
     this.scheduleService.getListSchedule(this.doctorInfo.userId).toPromise().then(
-        data => {
-          if (data) {
-            this.listSchedule = data;
-            let dateNow = new Date();
-            for (let i = 0; i < this.listSchedule.length; i++) {
-              const date = new Date(this.listSchedule[i].dayOfWeek);
-	      
-	      const dateIndex = date.getDay()
-	      console.log("date index",dateIndex)
-              const day = moment().add(i, 'days');
-              // @ts-ignore
-              dateNow = new Date(day);
-              if (date.getDate() === dateNow.getDate()) {
-                ELEMENT_DATA[dateIndex].status = 'Đã đăng ký';
-              }
-              ELEMENT_DATA[dateIndex].dayOfWeek = date.toISOString();
-              ELEMENT_DATA[dateIndex].weekdays = this.changeDay(date.getDay());
-              ELEMENT_DATA[dateIndex].status = 'Registerd';
-              ELEMENT_DATA[dateIndex].startTime = this.listSchedule[i].startTime;
-              ELEMENT_DATA[dateIndex].endTime = this.listSchedule[i].endTime;
+      data => {
+        if (data) {
+          this.listSchedule = data;
+          // let dateNow = new Date();
+          // for (let i = 0; i < this.listSchedule.length; i++) {
+          //   const date = new Date(this.listSchedule[i].dayOfWeek);
+
+          //   const dateIndex = date.getDay()
+          //   console.log("date index", dateIndex)
+          //   const day = moment().add(i, 'days');
+          //   // @ts-ignore
+          //   dateNow = new Date(day);
+          //   if (date.getDate() === dateNow.getDate()) {
+          //     ELEMENT_DATA[dateIndex].status = 'Đã đăng ký';
+          //   }
+          //   ELEMENT_DATA[dateIndex].dayOfWeek = date.toISOString();
+          //   ELEMENT_DATA[dateIndex].dayOfWeekStr = formatDate(date.toISOString(), "dd/MM/yyyy", 'en-US');
+          //   ELEMENT_DATA[dateIndex].weekdays = this.changeDay(date.getDay());
+          //   ELEMENT_DATA[dateIndex].status = 'Đã đăng ký';
+          //   ELEMENT_DATA[dateIndex].startTime = this.listSchedule[i].startTime;
+          //   ELEMENT_DATA[dateIndex].endTime = this.listSchedule[i].endTime;
+          // }
+
+          let date = new Date();
+          for (let i = 1; i < 8; i++) {
+            const day = moment().add(i, 'days').format('YYYY MM DD');
+            date = new Date(day);
+            const schedule = this.listSchedule.find(x=>formatDate(x.dayOfWeek, "dd/MM/yyyy", 'en-US') === ELEMENT_DATA[i - 1].dayOfWeekStr);
+            if(schedule){
+              ELEMENT_DATA[i - 1].status = 'Đã đăng ký';
+              ELEMENT_DATA[i - 1].startTime = schedule.startTime;
+              ELEMENT_DATA[i - 1].endTime = schedule.endTime;
+              this.selection.toggle(ELEMENT_DATA[i - 1]);
             }
+            // if(formatDate(this.listSchedule[i-1].dayOfWeek, "dd/MM/yyyy", 'en-US') == formatDate(date.toISOString(), "dd/MM/yyyy", 'en-US')){
+            //   ELEMENT_DATA[i - 1].dayOfWeek = date.toISOString();
+            //   ELEMENT_DATA[i - 1].dayOfWeekStr = formatDate(date.toISOString(), "dd/MM/yyyy", 'en-US');
+            //   ELEMENT_DATA[i - 1].weekdays = this.changeDay(date.getDay());
+            //   ELEMENT_DATA[i - 1].status = 'Đã đăng ký';
+            //   ELEMENT_DATA[i - 1].startTime = this.listSchedule[i-1].startTime;
+            //   ELEMENT_DATA[i - 1].endTime = this.listSchedule[i-1].endTime;
+            // }
           }
-        }, error => {
-          this.notify.notifiError('Lỗi', 'Không tồn tại danh sách đăng ký lịch trực');
         }
-      );
+      }, error => {
+        this.notify.notifiError('Lỗi', 'Không tồn tại danh sách đăng ký lịch trực');
+      }
+    );
   }
 
   registerListScheduleOfDoctor() {
@@ -146,26 +173,26 @@ export class RegisterScheduleComponent implements OnInit, DoCheck {
   }
 
   changeDateStart(e, row?: PeriodicElement) {
-    if( row.endTime && row.startTime>=row.endTime){
+    if (row.endTime && row.startTime >= row.endTime) {
       e.target.value = null;
       this.notify.notifiError('Lỗi', 'Giờ kết thúc không thể bé hơn giờ bắt đầu');
     }
   }
 
   changeDateEnd(e, row?: PeriodicElement) {
-    if(row.startTime && row.startTime>=row.endTime){
+    if (row.startTime && row.startTime >= row.endTime) {
       e.target.value = null;
       this.notify.notifiError('Lỗi', 'Giờ kết thúc không thể bé hơn giờ bắt đầu');
     }
   }
 
   register() {
-    this.scheduleService.createSchedule(this.selection.selected,this.doctorInfo.userId).toPromise().then(
-        data => {
-        }, error => {
-          this.notify.notifiError('Lỗi', 'Không tồn tại danh sách đăng ký lịch trực');
-        }
-      );
+    this.scheduleService.createSchedule(this.selection.selected, this.doctorInfo.userId).toPromise().then(
+      data => {
+      }, error => {
+        this.notify.notifiError('Lỗi', 'Không tồn tại danh sách đăng ký lịch trực');
+      }
+    );
   }
 }
 
@@ -176,15 +203,16 @@ export interface PeriodicElement {
   startTime: string,
   endTime: string,
   status: string;
+  dayOfWeekStr: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H'},
-  {position: 2, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H'},
-  {position: 3, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H'},
-  {position: 4, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H'},
-  {position: 5, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H'},
-  {position: 6, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H'},
-  {position: 7, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H'},
+  { position: 1, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H', dayOfWeekStr: '' },
+  { position: 2, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H', dayOfWeekStr: '' },
+  { position: 3, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H', dayOfWeekStr: '' },
+  { position: 4, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H', dayOfWeekStr: '' },
+  { position: 5, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H', dayOfWeekStr: '' },
+  { position: 6, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H', dayOfWeekStr: '' },
+  { position: 7, weekdays: '', dayOfWeek: '', startTime: "", endTime: "", status: 'H', dayOfWeekStr: '' },
 
 ];

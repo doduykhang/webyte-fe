@@ -31,11 +31,9 @@ export class ListDoctorComponent implements OnInit {
     doctorService.getListDoctor().subscribe((data) => {
       this.listDoctor = data;
       this.listDoctorTam = data;
-      console.log(this.listDoctor);
     });
     deptService.getListDept().subscribe((data) => {
       this.listKhoa = data;
-      console.log(this.listKhoa);
     });
 
 
@@ -48,10 +46,10 @@ export class ListDoctorComponent implements OnInit {
   listDept(deptId) {
     const list = [];
     let item: any;
-    console.log(deptId);
     if (deptId !== undefined) {
       for (item of this.listDoctorTam) {
-        if (item.departmentId.includes(deptId)) {
+        var check = item.departmentDTOs.find(x=> x.departmentId === deptId);
+        if (check) {
           list.push(item);
         }
       }
@@ -59,7 +57,6 @@ export class ListDoctorComponent implements OnInit {
     } else {
       this.listDoctor = this.listDoctorTam;
     }
-    console.log(list + deptId);
   }
 
 }
