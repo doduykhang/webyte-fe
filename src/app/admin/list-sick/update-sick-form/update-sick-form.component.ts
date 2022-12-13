@@ -29,21 +29,16 @@ export class UpdateSickFormComponent implements OnInit {
 	}
 
 	onSubmit() {
-		try {
-			const data = {
-				...this.myForm.value,
-				symptomIds: []
-			}
-			this.sickService.update(data).subscribe(data => {
-				this.notify.notifySuccessNotLink("Update", "Update")
-			}, err => {
-				this.notify.notifiError("Error", err)
-			})
-
-		} catch {
-
+		const data = {
+			...this.myForm.value,
+			symptomIds: []
 		}
-
+		this.sickService.update(data).subscribe(() => {
+			this.notify.notifySuccessNotLink("Thêm thành công", "")
+			this.dialogRef.close();
+			return;
+		})
+		this.notify.notifiError('Lỗi', 'Có lỗi trong quá trình thực thi, thử lại sau')
 	}
 
 	onNoClick(): void {

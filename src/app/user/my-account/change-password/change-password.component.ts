@@ -1,8 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserserviceService} from '../../../service/userservice.service';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserserviceService } from '../../../service/userservice.service';
 import Validation from './validation';
-import {AuthenticationService} from '../../../service/authentication.service';
+import { AuthenticationService } from '../../../service/authentication.service';
+import { NotifyService } from 'src/app/service/notify.service';
 
 @Component({
   selector: 'app-change-password',
@@ -29,7 +30,8 @@ export class ChangePasswordComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserserviceService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private notify: NotifyService
   ) {
   }
 
@@ -77,10 +79,13 @@ export class ChangePasswordComponent implements OnInit {
     console.log(this.pass);
     console.log(this.newPass);
     this.userService.changePassword({
-	id: this.id,
-	oldPassword: this.pass,
-	newPassword: this.newPass
-    }).subscribe()
+      id: this.id,
+      oldPassword: this.pass,
+      newPassword: this.newPass
+    }).subscribe(() => {
+      this.notify.notifySuccessNotLink('Đổi mật khẩu thành công', '')
+      window.location.href = '/#/doctor/my-account';
+    })
   }
 
   onReset(): void {
