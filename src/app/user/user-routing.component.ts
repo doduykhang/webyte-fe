@@ -32,7 +32,7 @@ export const UserRoutes: Routes = [
   {path: 'payment', component: PaymentComponent, canActivate: [AuthGuard]},
   {path: 'my-account', component: MyAccountComponent, canActivate: [AuthGuard]},
   {path: 'talk', component: TalkComponent, canActivate: [AuthGuard]},
-  {path: 'video-call', component: VideoCallComponent, canActivate: [AuthGuard]},
+  {path: 'video-call/:id', component: VideoCallComponent, canActivate: [AuthGuard]},
   {path: 'appoint-detail/:id/:date', component: AppointDetailComponent, canActivate: [AuthGuard]},
   {path: 'change-password', component: ChangePasswordComponent, canActivate: [AuthGuard]}
   // { path: '**', pathMatch:'full', redirectTo: 'routePath' }

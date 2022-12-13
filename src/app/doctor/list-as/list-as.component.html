@@ -66,8 +66,8 @@
               <td *ngIf="checkMedicalStatus(appSch.status)">
                 <button class="btn btn-danger" (click)="chiTiet(appSch.idappointmentSchedule)">Chi tiết</button>
               </td>
-              <td *ngIf="checkTimeWithRealTime(appSch.time, appSch.date | date:'dd-MM-yyyy') && !checkMedicalStatus(appSch.status)">
-                <button class="btn btn-primary" (click)="vaoKham(appSch.patientName, appSch.time, appSch.idappointmentSchedule)" >Vào khám</button>
+              <td *ngIf="checkTimeWithRealTime(appSch.appointmentTime, appSch.appointmentDate | date:'dd-MM-yyyy') && !checkMedicalStatus(appSch.status)">
+                <button class="btn btn-primary" (click)="vaoKham(appSch)" >Vào khám</button>
               </td>
             </tr>
             </tbody>
