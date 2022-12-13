@@ -23,7 +23,7 @@ export class MedicineServiceService {
   };
   constructor(private httpclient: HttpClient, private authentication: AuthenticationService) { }
   public getListMedicine(): Observable<any> {
-    const url = `${environment.medicineURL}`;
+    const url = `${environment.medicineURL}find-all`;
     return this.httpclient.get<any>(url, this.httpOptions); // Nhớ import catchError
   }
   getMedical(){

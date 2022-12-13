@@ -21,7 +21,7 @@ export class SickServiceService {
   };
   constructor(private httpclient: HttpClient, private authentication: AuthenticationService) { }
   public getListSick(): Observable<any> {
-    const url = `${environment.sickURL}get-all-sick`;
+    const url = `${environment.sickURL}find-all`;
     return this.httpclient.get<any>(url, this.httpOptions); // Nhớ import catchError
   }
 }

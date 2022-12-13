@@ -27,6 +27,16 @@ export class AppointmentScheduleService {
     const url = `${environment.appointmentURL}update-status/${id}/${trangthai}`;
     return this.httpclient.put<any>(url, this.httpOptions);
   }
+
+  public updateStatusDone(id): Observable<any> {
+    const url = `${environment.appointmentURL}update-done/${id}`;
+    return this.httpclient.put<any>(url, this.httpOptions);
+  }
+
+  public updateStatusComplete(id): Observable<any> {
+    const url = `${environment.appointmentURL}update-complete/${id}`;
+    return this.httpclient.put<any>(url, this.httpOptions);
+  }
   public getListChart(id): Observable<any> {
     const url = `${environment.appointmentURL}getAppointDate`+id;
     return this.httpclient.get<any>(url, this.httpOptions); // Nhớ import catchError

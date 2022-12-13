@@ -21,7 +21,7 @@
           (ngModelChange)="onChangeofOptions($event)">
           <input type="text" matInput style="height: 50px;" [(ngModel)]="search"
             (keyup)="filterItem($event)" required>
-          <mat-option *ngFor="let item of sickList" [value]="item">{{item.sickname}}</mat-option>
+          <mat-option *ngFor="let item of sickList" [value]="item.sickId">{{item.sickName}}</mat-option>
         </mat-select>
       </mat-form-field>
       <form [formGroup]="formMedicine" (ngSubmit)="addMedicine()">
@@ -34,8 +34,8 @@
             [matAutocomplete]="autoGroup" (keyup)="filterMedicine($event)">
           <mat-autocomplete #autoGroup="matAutocomplete">
 
-              <mat-option *ngFor="let name of medicineList" [value]="name.medicinename">
-                {{name.medicinename}}
+              <mat-option *ngFor="let name of medicineList" [value]="name.medicineName">
+                {{name.medicineName}}
               </mat-option>
 
           </mat-autocomplete>

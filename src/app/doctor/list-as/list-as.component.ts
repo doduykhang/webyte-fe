@@ -99,7 +99,7 @@ export class ListASComponent implements OnInit {
   }
 
   vaoKham(appointmentSchedule) {
-    this.appointment.updateStatusAppSch(appointmentSchedule.appointmentId, 'Đã khám').subscribe(data => {
+    this.appointment.updateStatusDone(appointmentSchedule.appointmentId).subscribe(data => {
       if (data) {
         console.log(data);
       }
