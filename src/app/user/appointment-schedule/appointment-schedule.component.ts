@@ -62,7 +62,7 @@ export class AppointmentScheduleComponent implements OnInit, DoCheck {
 
   clickItemAppointment(item) {
     console.log(item);    
-    if (item.typeClinic === 'offline' && item.status === 'registered') {
+    if (item.typeClinic === 'offline' && item.appointmentStatus === 'registered') {
       // tslint:disable-next-line:max-line-length
       this.notify.notifyNotLink('<p>Số thứ tự của bạn là:</p><strong>' + item.number + '</strong>', 'Thời gian khám dự kiến <b>' + item.time + '</b>, ' +
         '<p>Bạn vui lòng có mặt trước bệnh viện<b> trước 10 phút </b> để hoàn tất thủ tục đăng ký</p> ', 'info');
@@ -70,20 +70,20 @@ export class AppointmentScheduleComponent implements OnInit, DoCheck {
       // tslint:disable-next-line:max-line-length
       this.notify.notifyNotLink('<p>Ngày khám của bạn là:</p><strong>' + item.number + '</strong>', 'Thời gian khám dự kiến <b>' + item.time + '</b>, ' +
         '<p>Bạn vui lòng vào website <b> trước 5 phút </b> để chuẩn bị cho quá trình khám</p> ', 'info');
-    } else if (item.status === 'finished') {
+    } else if (item.appointmentStatus === 'finished') {
       const date = moment(item.date).format('DD-MM-yyyy');
       this.route.navigate(['user/appoint-detail', item.idappointmentSchedule, date]);
-    } else if (item.status === 'waiting') {
-      const date = new Date(item.date);
+    } else if (item.appointmentStatus === 'waiting') {
+	 
+      const date = new Date(item.appointmentDate);
       if (date.getDate() === this.dateNow.getDate()) {
         const datenow2 = moment(this.dateNow);
         const dates = moment(item.date).format('YYYY-MM-DD');
         const datemin = moment(dates + ' ' + item.time).add(-10, 'minutes');
         const datemax = moment(dates + ' ' + item.time);
 
-        console.log(datenow2.format('HH:mm'), datemin.format('HH:mm'), datemax.format('HH:mm'), dates, item.time);
-        if (datenow2 > datemin && datenow2 < datemax) {
-          this.notify.notifySuccess('chuẩn bị tới giờ khám', '/user/video-call', 'Vui lòng truy cập vào link dưới để tiến hành khám');
+        if (this.checkTime(item)) {
+          this.notify.notifySuccess('chuẩn bị tới giờ khám', '/user/video-call/' + item.appointmentId, 'Vui lòng truy cập vào link dưới để tiến hành khám');
         } else {
           // tslint:disable-next-line:max-line-length
           this.notify.notifyNotLink('<p>Ngày khám của bạn là:</p><strong>' + moment(item.date).format('DD-MM-yyyy') + '</strong>', 'Thời gian khám dự kiến <b>' + item.time + '</b>, ' +
@@ -99,12 +99,9 @@ export class AppointmentScheduleComponent implements OnInit, DoCheck {
 
   registrationSchedule() {
     this.route.navigate(['user/registration-schedule']);
-
-
   }
 
   clickOffline(click) {
-
     if (click === 'Online' || click === 'Offline') {
       this.listAppointmentSchedule = this.listAppointmentScheduleOrigin.filter(a => a.typeClinic === click);
     } else if (click === 'Đã đăng ký' || click === 'Đã hủy' || click === 'Đã khám') {
@@ -112,6 +109,14 @@ export class AppointmentScheduleComponent implements OnInit, DoCheck {
     } else {
       this.listAppointmentSchedule = this.listAppointmentScheduleOrigin;
     }
-
   }
+	
+  checkTime(item) {
+
+	  const beginningTime = moment(item.appointmentTime, 'hh:mm');
+	  const endingTime = moment(item.appointmentTime, 'hh:mm').add(30, "minutes");
+	 	const current = moment(new Date(), "hh:mm") 
+	return current.isBetween(beginningTime, endingTime)	
+  }
+
 }

@@ -17,10 +17,10 @@ export class ChatserviceService {
    * Creates a new WebSocket subject and send it to the messages subject
    * @param cfg if true the observable will be retried.
    */
-  public connect(){
+  public connect(id){
 
     if (!this.socket$ || this.socket$.closed) {
-      this.socket$ = this.getNewWebSocket();
+      this.socket$ = this.getNewWebSocket(id);
 
       this.socket$.subscribe(
         // Called whenever there is a message from the server
@@ -38,9 +38,9 @@ export class ChatserviceService {
   }
 
 
-  private getNewWebSocket(): WebSocketSubject<any> {
+  private getNewWebSocket(id): WebSocketSubject<any> {
     return webSocket({
-      url: WS_ENDPOINT,
+      url: WS_ENDPOINT + "/" + id,
       openObserver: {
         next: () => {
           console.log('[DataService]: connection ok');
@@ -50,7 +50,7 @@ export class ChatserviceService {
         next: () => {
           console.log('[DataService]: connection closed');
           this.socket$ = undefined;
-          this.connect();
+          this.connect(id);
         }
       }
     });
