@@ -19,12 +19,6 @@
                ngbDropdownToggle>{{status}}
               <i class="fas fa-ellipsis-v"></i>
             </a>
-            <div ngbDropdownMenu class="dropdown-menu-right
-              dropdown-menu-arrow">
-              <a class="dropdown-item" href="javascript:void(0)" (click)="getListAppSch()">Tất cả</a>
-              <a class="dropdown-item" href="javascript:void(0)" (click)="getListExam()">Đã khám</a>
-              <a class="dropdown-item" href="javascript:void(0)" (click)="getListWaiting()">Chờ khám</a>
-            </div>
           </div>
         </div>
         <div class="table-responsive">
@@ -60,11 +54,8 @@
               <td>
                 {{appSch.appointmentStatus }}
               </td>
-              <td *ngIf="!checkMedicalStatus(appSch.status)">
-                <button class="btn btn-secondary" [disabled]="true">Chi tiết</button>
-              </td>
-              <td *ngIf="checkMedicalStatus(appSch.status)">
-                <button class="btn btn-danger" (click)="chiTiet(appSch.idappointmentSchedule)">Chi tiết</button>
+              <td *ngIf="appSch.appointmentStatus === 'done'">
+                <button class="btn btn-danger" (click)="chiTiet(appSch.appointmentId)">Chi tiết</button>
               </td>
               <td *ngIf="checkTimeWithRealTime(appSch.appointmentTime, appSch.appointmentDate | date:'dd-MM-yyyy') && !checkMedicalStatus(appSch.status)">
                 <button class="btn btn-primary" (click)="vaoKham(appSch)" >Vào khám</button>

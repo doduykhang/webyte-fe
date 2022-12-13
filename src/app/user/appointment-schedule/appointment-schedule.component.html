@@ -61,7 +61,6 @@
         justify-content: center;">
             <button mat-button color="primary">{{item.appointmentStatus}}</button>
 	    <button mat-button style="color: red;" *ngIf="item.appointmentStatus === 'waiting' && checkTime(item)" >Vào phòng khám</button>
-            <button mat-button color="primary" *ngIf="item.appointmentStatus === 'waiting'">Hủy</button>
           </mat-card-actions>
         </div>
 
