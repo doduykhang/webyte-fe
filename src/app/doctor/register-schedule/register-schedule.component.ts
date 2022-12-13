@@ -189,7 +189,9 @@ export class RegisterScheduleComponent implements OnInit, DoCheck {
   register() {
     this.scheduleService.createSchedule(this.selection.selected, this.doctorInfo.userId).toPromise().then(
       data => {
-      }, error => {
+        this.notify.notifySuccessToggerMessage('Đăng ký lịch trực thành công');
+      }, 
+      error => {
         this.notify.notifiError('Lỗi', 'Không tồn tại danh sách đăng ký lịch trực');
       }
     );
