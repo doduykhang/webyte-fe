@@ -93,12 +93,7 @@ export class UserserviceService {
   }
 
   forgotPassword(email: string) {
-    return this.http.get(`${environment.forgotPassURL}${email}`).pipe(map(data => {
-      if (data) {
-        return data;
-      }
-      return null;
-    }));
+    return this.http.put(`${environment.forgotPassURL}`,{email})  
   }
 
   checkPassword(id: number, password: string): Observable<any> {
@@ -133,5 +128,9 @@ getUserInfo(id:number): Observable<any>{
 
 updateUser(data): Observable<any>{
     return this.http.put(`${environment.baseURL}update-account`, data, this.httpOptions);
+}
+
+updateUserImage(data): Observable<any>{
+    return this.http.put(`${environment.baseURL}update-image`, data, this.httpOptions);
 }
 }

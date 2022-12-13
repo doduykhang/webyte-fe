@@ -9,6 +9,7 @@ import { ValidatorsCharacters } from '../../shared/util/validators-characters';
 import { Doctor } from '../../models/doctor';
 import { ErrorStateMatcher } from '@angular/material';
 import { UserInfo } from '../../models/user-info';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-my-account',
@@ -18,8 +19,11 @@ import { UserInfo } from '../../models/user-info';
 export class MyAccountComponent implements OnInit {
 
   constructor(private authentication: AuthenticationService, private userService: UserserviceService,
-    private notify: NotifyService,
-    private router: Router, private doctorService: DoctorService) {
+    private notify: NotifyService, 
+    private router: Router, private doctorService: DoctorService,
+
+	private storage: AngularFireStorage
+	     ) {
   }
 
   addAdminForm = new FormGroup({
@@ -48,15 +52,22 @@ export class MyAccountComponent implements OnInit {
     })
   }
 
-  changeImg() {
+  async changeImg(event) {
 
-    const id = this.id;
-    // tslint:disable-next-line:triple-equals
-    if (id == 0) {
-      // this.notify.notifiError('Error',"Unverified account");
-    } else {
-      // this.router.navigate(['change-img', this.id]);
-    }
+    var n = Date.now();
+    const file = event.target.files[0];
+    const filePath = `${n}`;
+    const fileRef = this.storage.ref(filePath);
+    await this.storage.upload(`${n}`, file);
+    const url = await fileRef.getDownloadURL().toPromise();
+
+	this.userService.updateUserImage(
+		{
+			id: this.authentication.currentUserValue.id,
+			url
+		}
+	).subscribe() 
+
   }
 
   changeInfo() {

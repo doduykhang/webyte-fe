@@ -11,6 +11,17 @@
   <div class="mt-3 mb-3">
     <button mat-raised-button color="primary" (click)="openDialog()">Thêm mới</button>
   </div>
+  	
+        <mat-form-field>
+            <mat-label>From</mat-label>
+            <input [(ngModel)]="from" required matInput type="date" >
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>To</mat-label>
+            <input [(ngModel)]="to" required matInput type="date" >
+        </mat-form-field>
+	    <a href="http://localhost:8080/webyte/doctor/export-to-excel?from={{from}}&to={{to}}">In lich truc</a>
   <!-- Table -->
   <div class="row">
     <div class="col">

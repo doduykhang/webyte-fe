@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <div>
+    <div *ngIf="!listPres">
 
       <mat-form-field  class="col-6"style="margin: 15px;">
         <mat-label>Bệnh</mat-label>
@@ -34,7 +34,7 @@
             [matAutocomplete]="autoGroup" (keyup)="filterMedicine($event)">
           <mat-autocomplete #autoGroup="matAutocomplete">
 
-              <mat-option *ngFor="let name of medicineList" [value]="name.medicineName">
+              <mat-option *ngFor="let name of medicineList" [value]="name.medicineId">
                 {{name.medicineName}}
               </mat-option>
 
@@ -60,7 +60,7 @@
 
   </div>
 
-  <div>
+  <div *ngIf="!listPres">
     <p *ngFor="let item of dataSource">
       {{item.medicine}}
     </p>
@@ -96,8 +96,35 @@
         </tr>
       </tbody>
     </table>
-    <button type="submit" [disabled]="!formMedicine.valid && sicks.valid" class="btn btn_color">
+    <button type="submit" [disabled]="!formMedicine.valid && sicks.valid" (click)="createPrescription()" class="btn btn_color">
       Lưu
     </button>
+
   </div>
+
+    <table class="table align-items-center table-flush">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Stt</th>
+          <th scope="col">Tên thuốc</th>
+          <th scope="col">Số lượng</th>
+          <th scope="col">Liều dùng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listPres | paginate: {itemsPerPage:5, currentPage:p} , let i=index ">
+          <td>{{i+1}}</td>
+          <th scope="row">
+            <div class="media align-items-center">
+
+              <div class="media-body">
+                <span class="mb-0 text-sm">{{item.medicineDTO.medicineName}}</span>
+              </div>
+            </div>
+          </th>
+          <td>{{item.prescriptionDosage}}</td>
+          <td>{{item.prescriptionAmount}}</td>
+        </tr>
+      </tbody>
+    </table>
 </div>

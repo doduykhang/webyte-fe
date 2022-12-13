@@ -9,6 +9,7 @@ import {NotifyService} from '../../service/notify.service';
 import {DatePipe} from '@angular/common';
 import { HeaderserviceService } from 'src/app/service/userservice/headerservice.service';
 import {Router} from '@angular/router';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-my-account',
@@ -18,7 +19,10 @@ import {Router} from '@angular/router';
 export class MyAccountComponent implements OnInit {
   constructor(private authentication: AuthenticationService, private userService: UserserviceService,
               private notify: NotifyService, private headerService: HeaderserviceService,
-              private router: Router) {
+              private router: Router, 
+	private storage: AngularFireStorage
+
+	     ) {
   }
 
   addEmployeeForm = new FormGroup({
@@ -45,15 +49,22 @@ export class MyAccountComponent implements OnInit {
 		this.email = data.email
 	  })
   }
-  changeImg() {
+  async changeImg(event) {
 
-    const id = this.id;
-    // tslint:disable-next-line:triple-equals
-    if (id == 0) {
-      // this.notify.notifiError('Error',"Unverified account");
-    } else {
-      // this.router.navigate(['change-img', this.id]);
-    }
+    var n = Date.now();
+    const file = event.target.files[0];
+    const filePath = `${n}`;
+    const fileRef = this.storage.ref(filePath);
+    await this.storage.upload(`${n}`, file);
+    const url = await fileRef.getDownloadURL().toPromise();
+
+	this.userService.updateUserImage(
+		{
+			id: this.authentication.currentUserValue.id,
+			url
+		}
+	).subscribe() 
+
   }
 
   changeInfo() {

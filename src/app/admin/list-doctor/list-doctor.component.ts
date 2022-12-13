@@ -24,6 +24,8 @@ export class ListDoctorComponent implements OnInit {
 	listDept;
 	dept: FormControl = new FormControl('Lọc theo khoa');
 	p: number;
+	from = new Date();
+	to = new Date()
 
 	searchForm = this.formBuilder.group({
 		query: '',

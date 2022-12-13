@@ -42,10 +42,10 @@ export class UpdateDoctorFormComponent implements OnInit {
 	onSubmit() {
 		try {
 			const data = {
-				...this.data,
+				...this.data.doctor,
 				...this.myForm.value,
-				deptid: this.myForm.value.deptId
 			}
+			delete data.departmentDTOs
 			this.doctorService.updateDoctor(data).subscribe(data => {
 				this.notify.notifySuccessNotLink("Sửa thành công", "")
 				this.dialogRef.close();

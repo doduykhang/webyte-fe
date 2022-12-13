@@ -18,8 +18,13 @@ export class PrescriptionService {private httpOptions = {
   }),
 };
   constructor(private httpclient: HttpClient, private authentication: AuthenticationService) { }
-  public getListPrescription(): Observable<any> {
-    const url = `${environment.prescriptionURL}get-all-prescription`;
+  public getListPrescription(id): Observable<any> {
+    const url = `${environment.healthRecordURL}${id}`;
     return this.httpclient.get<any>(url, this.httpOptions); // Nhớ import catchError
+  }
+
+  public createPrescriptions(data): Observable<any> {
+    const url = `${environment.healthRecordURL}`;
+    return this.httpclient.post<any>(url, data, this.httpOptions); // Nhớ import catchError
   }
 }

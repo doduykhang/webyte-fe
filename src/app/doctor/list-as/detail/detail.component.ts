@@ -63,7 +63,7 @@ export class DetailComponent implements OnInit {
 
   ngOnInit() {
     // tslint:disable-next-line:no-non-null-assertion
-    this.presService.getListPrescription().subscribe(data => {
+    this.presService.getListPrescription(this.id).subscribe(data => {
       if (data) {
         this.listPres = data;
         console.log(data);
@@ -128,6 +128,9 @@ export class DetailComponent implements OnInit {
   }
   addMedicine() {
     let itemMedicine=this.formMedicine.value
+    const medicine = this.medicineListOrigin.find(item => item.medicineId === itemMedicine.medicine);
+    itemMedicine.medicine = medicine.medicineName
+    itemMedicine.medicineId = medicine.medicineId
     if(itemMedicine!=null){
       this.newListMedicine.push(itemMedicine);
 
@@ -143,6 +146,26 @@ export class DetailComponent implements OnInit {
     console.log("new",this.newListMedicine);
     this.dataSource=this.newListMedicine;
     console.log(this.dataSource)
+  }
+  createPrescription() {
+	console.log(this.newListMedicine)
+	console.log(this.myDropDown)
+	this.presService.createPrescriptions(
+		{
+			appointmentId: this.id,
+			sicknessIds: this.myDropDown,
+			prescriptionDTOs: this.newListMedicine.map((item)=>{
+				return {
+					...item,
+					prescriptionDosage: item.dosage,
+					prescriptionDate: new Date(),
+					prescriptionTime: "",
+					prescriptionAmount: item.amount,
+					prescriptionDuration: ""
+				}
+			})
+		}
+	).subscribe();
   }
 }
 export interface MedicineBill {

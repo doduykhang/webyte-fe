@@ -40,10 +40,12 @@ export class RegisterScheduleComponent implements OnInit, DoCheck {
     let date = new Date();
     console.log(date.getDate());
 
+var currentDate = moment();
 
+  var weekStart = currentDate.clone().startOf('isoWeek');
     // if (date.getDate() !== 6) {
     for (let i = 1; i < 8; i++) {
-      const day = moment().add(i, 'days').format('YYYY MM DD');
+      const day = weekStart.add(1, 'days').format('YYYY MM DD');
       date = new Date(day);
 
       ELEMENT_DATA[i - 1].dayOfWeekStr = formatDate(date, "dd/MM/yyyy", 'en-US');
@@ -59,6 +61,19 @@ export class RegisterScheduleComponent implements OnInit, DoCheck {
     //   this.getListScheduleOfDoctor();
     // }
   }
+  getCurrentWeek() {
+  var currentDate = moment();
+
+  var weekStart = currentDate.clone().startOf('isoWeek');
+  var weekEnd = currentDate.clone().endOf('isoWeek');
+
+  var days = [];
+
+  for (var i = 0; i <= 6; i++) {
+    days.push(moment(weekStart).add(i, 'days').format("MMMM Do,dddd"));
+  }
+  return days;
+}
 
   getListScheduleOfDoctor() {
     this.scheduleService.getListSchedule(this.doctorInfo.userId).toPromise().then(

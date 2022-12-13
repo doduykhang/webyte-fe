@@ -1,7 +1,7 @@
 export class Medicine{
-  public  medicineid:number;
+  public  medicineId:number;
 
-	public  medicinename:string;
+	public  medicineName:string;
 
 	public  status:string;
 
