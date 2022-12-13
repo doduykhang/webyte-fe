@@ -23,9 +23,9 @@ export class MyAccountComponent implements OnInit {
   }
 
   addDoctorForm = new FormGroup({
-    userFName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),
-    userLName: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(40)]),
-    address: new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(100)]),
+    userFName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(40)]),
+    userLName: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(40)]),
+    address: new FormControl('', [Validators.required, Validators.minLength(2), Validators.maxLength(100)]),
     birthDate: new FormControl('', [Validators.required]),
     phoneNum: new FormControl('', [Validators.required, ValidatorsCharacters.PhoneFax]),
   });

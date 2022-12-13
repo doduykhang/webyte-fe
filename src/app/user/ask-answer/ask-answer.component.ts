@@ -4,6 +4,7 @@ import { CKEditor4 } from 'ckeditor4-angular';
 import { Answer } from 'src/app/models/answer';
 import { question } from 'src/app/models/question';
 import { AuthenticationService } from 'src/app/service/authentication.service';
+import { NotifyService } from 'src/app/service/notify.service';
 import { AnswerserviceService } from 'src/app/service/userservice/answerservice.service';
 import { HeaderserviceService } from 'src/app/service/userservice/headerservice.service';
 import { QuestionserviceService } from 'src/app/service/userservice/questionservice.service';
@@ -25,40 +26,40 @@ export class AskAnswerComponent implements OnInit {
   test = '<p>hi</p>'
   question: question = new question();
   newAnswer: Answer = new Answer();
-  constructor(private headerService: HeaderserviceService, private toppicService: TopicserviceService,
+  constructor(private headerService: HeaderserviceService, private toppicService: TopicserviceService, private notify: NotifyService,
     private authenticate: AuthenticationService, private questionService: QuestionserviceService, private answerService: AnswerserviceService) {
   }
 
   post = false;
   ngOnInit() {
     this.headerService.setActive('ask-answer');
-    this.question.userId = this.authenticate.currentUserValue.id;
-    this.accountid = this.authenticate.currentUserValue.id;
+    if(this.authenticate.currentUserValue){
+      this.question.userId = this.authenticate.currentUserValue.id;
+      this.accountid = this.authenticate.currentUserValue.id;
+    }
+    
     this.toppicService.getAllTopics().subscribe(data => {
       this.listTopics = data;
-      console.log(data);
     })
     this.questionService.getAllQuestion().subscribe(data => {
       this.listQuestion = data;
-      console.log(data);
     })
 
   }
 
   clickPost() {
     this.post = !this.post;
-    console.log(this.post);
   }
   registerAnswer() {
     this.question.topicId = this.topic.value;
     this.question.questionContent = this.data;
-    console.log(this.question);
+    if(!this.question.questionContent || this.question.questionContent.trim()==''){
+      return;
+    }
     this.questionService.insertAllTopics(this.question).subscribe(data => {
-      console.log(data);
+      this.notify.notifySuccessNotLink('Đã đặt câu hỏi', '');
       window.location.reload();
     });
-    console.log(this.data);
-    console.log(this.topic.value);
 
   }
   public onChange(event: CKEditor4.EventInfo) {
@@ -68,10 +69,14 @@ export class AskAnswerComponent implements OnInit {
     this.newAnswer.userId = this.accountid;
     this.newAnswer.answerContent = this.answer.value;
     this.newAnswer.questionId = questionId;
+
+    if(!this.newAnswer.answerContent || this.newAnswer.answerContent.trim()==''){
+      return;
+    }
     this.answerService.insertAllAnswer(this.newAnswer).subscribe(data => {
       this.questionService.getAllQuestion().subscribe(data => {
         this.listQuestion = data;
-        console.log(data);
+        window.location.reload();
       })
     })
   }
