@@ -31,8 +31,14 @@ export class ListDoctorComponent implements OnInit {
 
 	loadDoctor(name: string = "", page: number = 0, size: number = 1000) {
 		this.doctorService.getListDoctor(name, page, size).subscribe(data => {
-			this.listDoctorOrigin = data;
+			const data2 = data.map((doctor) => {
+				doctor.departmentDTOs = doctor.departmentDTOs.map((dept) => dept.departmentId)	
+				return doctor
+			})
+			
+			this.listDoctorOrigin = data2
 			this.listDoctor = this.listDoctorOrigin;
+		
 		});
 		this.deptService.getListDept().subscribe(data => {
 			this.listDept = data;
@@ -77,6 +83,21 @@ export class ListDoctorComponent implements OnInit {
 
 			this.loadDoctor()
 		});
+	}
+
+	selectDept(dept, doctor, list) {
+		if (list.includes(dept)) {
+			this.doctorService.removeDoctorToDept({
+				departmentId: dept,
+				doctorIds: [doctor]
+			}).subscribe(this.loadDoctor)
+		} else {
+
+			this.doctorService.addDoctorToDept({
+				departmentId: dept,
+				doctorIds: [doctor]
+			}).subscribe(this.loadDoctor)
+		}
 	}
 
 	onSearch() {
