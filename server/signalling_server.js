@@ -3,21 +3,29 @@ const wss = new WebSocket.Server({ port: 8081 }, () => {
     console.log("Signalling server is now listening on port 8081");
 });
 
-wss.broadcast = (ws, data) => {
-    wss.clients.forEach((client) => {
+const group = {}
+
+wss.broadcast = (ws, data, id) => {
+    group[id].forEach((client) => {
         if (client !== ws && client.readyState === WebSocket.OPEN) {
             client.send(data);
         }
     });
 };
 
-wss.on('connection', ws => {
+wss.on('connection', (ws, req) => {
     console.log(`Client connected. Total connected clients: ${wss.clients.size}`);
+	const id = req.url.replace("/", "")
+	console.log("id",id)
+	if(!group[id]) {
+		group[id] = [ws]
+	} else {
+		group[id] = [...group[id],ws]
+	}
 
     ws.on('message', message => {
         // msg = JSON.parse(message);
-        console.log(message + "\n\n");
-        wss.broadcast(ws, message);
+        wss.broadcast(ws, message, id);
     });
     ws.on('close', ws=> {
         console.log(`Client disconnected. Total connected clients: ${wss.clients.size}`);

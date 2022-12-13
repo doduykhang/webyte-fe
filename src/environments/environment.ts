@@ -35,6 +35,22 @@ export const environment = {
 				urls: 'stun:stun1.l.google.com:19302'
 			}
 		]
+	},
+	firebase: {
+apiKey: "AIzaSyAmTJgz2rDmvkA6OyEfhRbJl1kCh8jAnY0",
+
+  authDomain: "webyte2-af443.firebaseapp.com",
+
+  projectId: "webyte2-af443",
+
+  storageBucket: "webyte2-af443.appspot.com",
+
+  messagingSenderId: "533267346962",
+
+  appId: "1:533267346962:web:33bd8154c0545ed2520acb",
+
+  measurementId: "G-F9WSHSMK6Z"
+
 	}
 };
 

@@ -30,8 +30,14 @@ import {ErrorInterceptor} from './interceptors/error.interceptor';
 import {AuthGuard} from './shared/guards/auth-guard.guard';
 import { AppRoutingModule } from './app-routing.component';
 import { ChartsModule } from 'ng2-charts';
-
-
+import {
+  AngularFireStorageModule,
+  AngularFireStorageReference,
+  AngularFireUploadTask,
+  StorageBucket
+} from "@angular/fire/storage";
+import { AngularFireModule } from "@angular/fire";
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -60,13 +66,13 @@ import { ChartsModule } from 'ng2-charts';
     HttpClientModule,
     NgbModule,
     ShareModule,
-
-
+    AngularFireStorageModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
     AuthGuard ,
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

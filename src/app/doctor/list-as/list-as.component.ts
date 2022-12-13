@@ -98,13 +98,13 @@ export class ListASComponent implements OnInit {
     this.route.navigate(['/doctor/listASdetail', id]);
   }
 
-  vaoKham(patientName: string, time: string, id: number) {
-    this.appointment.updateStatusAppSch(id, 'Đã khám').subscribe(data => {
+  vaoKham(appointmentSchedule) {
+    this.appointment.updateStatusAppSch(appointmentSchedule.appointmentId, 'Đã khám').subscribe(data => {
       if (data) {
         console.log(data);
       }
     });
-    this.notify.confirmSuccess('Bạn có chắc chắn không?', 'Bạn sẽ không thể hoàn nguyên điều này!',
-      'Vâng, tôi đồng ý!', 'Xác nhận vào khám bệnh nhân ' + patientName, 'Thời gian vào khám: ' + time + 'H');
+    this.notify.notifySuccess('Bạn có chắc chắn không?', '/doctor/video-call/' + appointmentSchedule.appointmentId,
+      'Vâng, tôi đồng ý!');
   }
 }

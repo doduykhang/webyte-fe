@@ -9,8 +9,7 @@ export class HeaderserviceService {
     {title: 'Giới thiệu', active: '', name: 'about', disable: false},
     {title: 'Danh mục bác sĩ', active: '', name: 'list-doctor', disable: false},
     {title: 'Lịch khám', active: '', name: 'appointment-schedule', disable: true},
-    {title: 'Liên hệ', active: '', name: 'contact', disable: false},
-    {title: 'Hỏi đáp với bác sĩ', active: '', name: 'ask-answer', disable: true},
+    {title: 'Hỏi đáp với bác sĩ', active: '', name: 'ask-answer', disable: false},
     {title: 'Thông tin cá nhân', active: '', name: 'my-account', disable: true},
     {title: 'Đăng nhập', active: '', name: 'login', disable: false},
     {title: 'Đăng xuất', active: '', name: 'logout', disable: true}

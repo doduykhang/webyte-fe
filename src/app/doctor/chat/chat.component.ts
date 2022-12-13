@@ -2,6 +2,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ChatserviceService } from 'src/app/service/userservice/chatservice.service';
 import { environment } from 'src/environments/environment';
+import { ActivatedRoute } from '@angular/router';
 export const ENV_RTCPeerConfiguration = environment.RTCPeerConfiguration;
 const mediaConstraints = {
   audio: true,
@@ -31,8 +32,12 @@ export class ChatComponent implements AfterViewInit {
 
   inCall = false;
   localVideoActive = false;
+  id;
 
-  constructor(private dataService: ChatserviceService) { }
+  constructor(private dataService: ChatserviceService, private route: ActivatedRoute) { 
+    this.id = +this.route.snapshot.paramMap.get('id');
+  }
+
   async call(): Promise<void> {
     this.createPeerConnection();
     // Add the tracks from the local stream to the RTCPeerConnection
@@ -160,7 +165,7 @@ export class ChatComponent implements AfterViewInit {
     this.remoteVideo.nativeElement.srcObject = event.streams[0];
   }
   private addIncominMessageHandler(): void {
-    this.dataService.connect();
+    this.dataService.connect(this.id);
 
     // this.transactions$.subscribe();
     this.dataService.messages$.subscribe(
