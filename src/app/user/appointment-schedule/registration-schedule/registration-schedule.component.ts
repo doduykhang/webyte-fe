@@ -81,7 +81,7 @@ export class RegistrationScheduleComponent implements OnInit {
   class;
   button;
   online = false;
-  quydoi: number;
+  quydoi: number=12;
   errorDate = false;
   listDept;
   listDoctor;
@@ -133,7 +133,7 @@ export class RegistrationScheduleComponent implements OnInit {
       this.changeColors = 'change-color';
 
     }
-    // this.formDangKy.controls['gia'].setValue(300000);
+    this.formDangKy.controls['gia'].setValue(300000);
     console.log(this.formDangKy.value);
 
     // console.log(random);

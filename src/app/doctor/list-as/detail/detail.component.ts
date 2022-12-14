@@ -88,7 +88,7 @@ export class DetailComponent implements OnInit {
     let search = this.formMedicine.controls.medicine.value;
     console.log(search);
     if (value != "") {
-      this.medicineList = this.medicineListOrigin.filter(a => a.medicinename.toLowerCase().includes(search.toLowerCase()));
+      this.medicineList = this.medicineListOrigin.filter(a => a.medicineName.toLowerCase().includes(search.toLowerCase()));
       console.log(this.medicineList);
     }
     else {

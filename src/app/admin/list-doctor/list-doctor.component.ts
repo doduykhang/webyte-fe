@@ -34,7 +34,11 @@ export class ListDoctorComponent implements OnInit {
 	loadDoctor(name: string = "", page: number = 0, size: number = 1000) {
 		this.doctorService.getListDoctor(name, page, size).subscribe(data => {
 			const data2 = data.map((doctor) => {
-				doctor.departmentDTOs = doctor.departmentDTOs.map((dept) => dept.departmentId)	
+				const deptsId = doctor.departmentDTOs.map((dept) => dept.departmentId)	
+				const deptName = doctor.departmentDTOs.map((dept) => dept.departmentName)	
+				doctor.departmentDTOs = deptsId;
+				doctor.deptName = deptName
+				console.log(doctor.departmentDTOs)
 				return doctor
 			})
 			
@@ -46,15 +50,6 @@ export class ListDoctorComponent implements OnInit {
 			this.listDept = data;
 		});
 
-		this.doctorService.getListDoctor(name, page, size).subscribe(data => {
-			const data1 = [];
-			data.forEach(x=>{
-				var obj = {...x, deptName: (x.departmentDTOs.map(y=> {return y.departmentName})).toString()}
-				data1.push(obj);
-			});
-			this.listDoctorOrigin = data1;
-			this.listDoctor = this.listDoctorOrigin;
-		});
 
 		
 	}
