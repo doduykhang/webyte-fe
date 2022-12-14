@@ -18,7 +18,7 @@ export class NewsDetailComponent implements OnInit {
       console.log(newsId)
       this.news.getListNews().subscribe(data1 => {
         this.data = data1.find(x => x.newsId == newsId)
-
+        console.log(this.data)
         var content = document.getElementById("content");
         content.innerHTML = this.data.text;
       })
